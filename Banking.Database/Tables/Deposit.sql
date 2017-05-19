@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[Deposit]
+(
+	[DepositId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[AccountId] UNIQUEIDENTIFIER NOT NULL,
+	[Timestamp] DATETIME NOT NULL,
+	[Amount] MONEY NOT NULL,
+
+	CONSTRAINT CHK_Deposit_Amount_Positive CHECK(Amount > 0)
+)

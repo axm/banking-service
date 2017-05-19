@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/BankingService" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="TransactionProcessingService_InstanceCount" Value="1" />
+    <Parameter Name="BankingIntegrationTests_InstanceCount" Value="1" />
+    <Parameter Name="BankingApi_InstanceCount" Value="1" />
+    <Parameter Name="AccountApi_InstanceCount" Value="1" />
+    <Parameter Name="AccountActorService_PartitionCount" Value="1" />
+    <Parameter Name="AccountActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="AccountActorService_MinReplicaSetSize" Value="1" />
+    <Parameter Name="CustomerActorService_PartitionCount" Value="1" />
+    <Parameter Name="CustomerActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="CustomerActorService_MinReplicaSetSize" Value="1" />
+  </Parameters>
+</Application>

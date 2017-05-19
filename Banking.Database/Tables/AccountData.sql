@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[AccountData]
+(
+	[AccountId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[SortCode] VARCHAR(8) NOT NULL DEFAULT '70-36-10',
+	[Overdraft] MONEY NOT NULL DEFAULT(0),
+	[Balance] MONEY NOT NULL DEFAULT(0),
+
+	CONSTRAINT CHK_Balance_Positive CHECK(Balance > 0)
+)
