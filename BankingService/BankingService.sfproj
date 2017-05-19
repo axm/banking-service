@@ -31,7 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AccountActor\AccountActor.csproj" />
-    <ProjectReference Include="..\AccountApi\AccountApi.csproj" />
     <ProjectReference Include="..\BankingApi\BankingApi.csproj" />
     <ProjectReference Include="..\BankingIntegrationTests\BankingIntegrationTests.csproj" />
     <ProjectReference Include="..\CreditAccountActor\CreditAccountActor.csproj" />
