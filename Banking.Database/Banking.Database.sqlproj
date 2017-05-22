@@ -63,11 +63,14 @@
   <ItemGroup>
     <Build Include="Tables\AccountData.sql" />
     <Build Include="Schema\Credit.sql" />
-    <Build Include="Tables\CreditData.sql" />
+    <Build Include="Tables\Credit.CreditData.sql" />
     <Build Include="Tables\Withdrawal.sql" />
     <Build Include="Tables\Deposit.sql" />
     <Build Include="Tables\Transfer.sql" />
-    <Build Include="Tables\Payment.sql" />
+    <Build Include="Tables\Credit.Payment.sql" />
+    <Build Include="Tables\Credit.Transaction.sql" />
+    <Build Include="Tables\Credit.PendingPayment.sql" />
+    <Build Include="Tables\Credit.PendingTransaction.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Banking.Database.publish.xml" />

@@ -82,9 +82,8 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreditRepository.cs" />
     <Compile Include="ICreditAccountActorFactory.cs" />
-    <Compile Include="PaymentParams.cs" />
+    <Compile Include="Params\PaymentParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ICreditAccountActor.cs" />
     <Compile Include="Sql.Designer.cs">
@@ -92,11 +91,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Sql.resx</DependentUpon>
     </Compile>
+    <Compile Include="Params\TransactionParams.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Accounts.Domain\Accounts.Domain.csproj">
+      <Project>{5F6487E7-B4D7-4020-8566-681ABBDF31CD}</Project>
+      <Name>Accounts.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Credits.Domain\Credits.Domain.csproj">
       <Project>{aaf192ff-e715-4390-bdbb-f13cccd76d12}</Project>
       <Name>Credits.Domain</Name>

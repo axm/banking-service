@@ -4,6 +4,8 @@ using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors.Runtime;
+using Credits.Data;
+using System.Configuration;
 
 namespace CreditAccountActor
 {
@@ -21,8 +23,10 @@ namespace CreditAccountActor
                 // are automatically populated when you build this project.
                 // For more information, see https://aka.ms/servicefabricactorsplatform
 
+                var repository = new CreditRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
+
                 ActorRuntime.RegisterActorAsync<CreditAccountActor>(
-                   (context, actorType) => new ActorService(context, actorType)).GetAwaiter().GetResult();
+                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new CreditAccountActor(svc, id, repository))).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }

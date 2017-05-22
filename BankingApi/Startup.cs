@@ -33,7 +33,7 @@ namespace BankingApi
             services.AddMvc();
 
             services.AddSingleton<IAccountActorFactory, AccountActorFactory>();
-            services.AddSingleton<ICreditAccountActorFactory>
+            services.AddSingleton<ICreditAccountActorFactory, CreditAccountActorFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

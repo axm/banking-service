@@ -4,6 +4,5 @@
     <Parameter Name="TransactionProcessingService_InstanceCount" Value="-1" />
     <Parameter Name="BankingIntegrationTests_InstanceCount" Value="-1" />
     <Parameter Name="BankingApi_InstanceCount" Value="-1" />
-    <Parameter Name="AccountApi_InstanceCount" Value="-1" />
   </Parameters>
 </Application>

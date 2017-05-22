@@ -4,14 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CreditAccountActor.Interfaces
+namespace Credits.Domain
 {
-    public interface ICreditRepository
-    {
-
-    }
-
-    public class CreditRepository
+    public class TransactionGuid
     {
     }
 }

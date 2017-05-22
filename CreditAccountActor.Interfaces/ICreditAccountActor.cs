@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors;
+using CreditAccountActor.Interfaces.Params;
 
 namespace CreditAccountActor.Interfaces
 {
@@ -14,6 +15,6 @@ namespace CreditAccountActor.Interfaces
     public interface ICreditAccountActor : IActor
     {
         Task MakePayment(PaymentParams paymentParams);
-
+        Task MakeTransaction(TransactionParams transactionParams);
     }
 }

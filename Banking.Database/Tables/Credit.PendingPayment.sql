@@ -1,0 +1,10 @@
+﻿CREATE TABLE [Credit].[PendingPayment]
+(
+	[PaymentId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[CreditId] UNIQUEIDENTIFIER NOT NULL,
+	[FromAccountId] UNIQUEIDENTIFIER NOT NULL,
+	[Timestamp] DATETIME NOT NULL,
+	[Amount] MONEY NOT NULL,
+
+	CONSTRAINT CHK_PendingPayment_Amount CHECK(Amount > 0)
+)

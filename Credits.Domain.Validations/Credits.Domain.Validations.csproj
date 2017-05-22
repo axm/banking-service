@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AAF192FF-E715-4390-BDBB-F13CCCD76D12}</ProjectGuid>
+    <ProjectGuid>{DA6D9B5E-27EB-4818-A85D-4A0C110E87E6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Credits.Domain</RootNamespace>
-    <AssemblyName>Credits.Domain</AssemblyName>
+    <RootNamespace>Credits.Domain.Validations</RootNamespace>
+    <AssemblyName>Credits.Domain.Validations</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common">
-      <HintPath>..\..\..\Libs\Common.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,13 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreditAccountGuid.cs" />
-    <Compile Include="Payment.cs" />
-    <Compile Include="PaymentGuid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Transaction.cs" />
-    <Compile Include="TransactionGuid.cs" />
-    <Compile Include="Validations\PaymentValidationSpecifier.cs" />
+    <Compile Include="PaymentValidation.cs" />
+    <Compile Include="TransactionValidation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Credits.Interfaces\Credits.Interfaces.csproj">
+      <Project>{104F5AF0-3278-4B43-9B2E-B5D008D3212F}</Project>
+      <Name>Credits.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

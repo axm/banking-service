@@ -4,13 +4,15 @@
     <Parameter Name="TransactionProcessingService_InstanceCount" DefaultValue="-1" />
     <Parameter Name="BankingIntegrationTests_InstanceCount" DefaultValue="-1" />
     <Parameter Name="BankingApi_InstanceCount" DefaultValue="-1" />
-    <Parameter Name="AccountApi_InstanceCount" DefaultValue="1" />
     <Parameter Name="AccountActorService_PartitionCount" DefaultValue="10" />
     <Parameter Name="AccountActorService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="AccountActorService_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="CustomerActorService_PartitionCount" DefaultValue="10" />
     <Parameter Name="CustomerActorService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="CustomerActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="CreditAccountActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="CreditAccountActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="CreditAccountActorService_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -32,10 +34,6 @@
   </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="CustomerActorPkg" ServiceManifestVersion="1.0.0" />
-  </ServiceManifestImport>
-  <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="AccountApiPkg" ServiceManifestVersion="1.0.0" />
-    <ConfigOverrides />
   </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="AccountActorPkg" ServiceManifestVersion="1.0.0" />
@@ -61,11 +59,6 @@
         <SingletonPartition />
       </StatelessService>
     </Service>
-    <Service Name="AccountApi">
-      <StatelessService ServiceTypeName="AccountApiType" InstanceCount="[AccountApi_InstanceCount]">
-        <SingletonPartition />
-      </StatelessService>
-    </Service>
     <Service Name="AccountActorService" GeneratedIdRef="e3b00214-04f4-4178-91e5-c2fc259f1d02|Persisted">
       <StatefulService ServiceTypeName="AccountActorServiceType" TargetReplicaSetSize="[AccountActorService_TargetReplicaSetSize]" MinReplicaSetSize="[AccountActorService_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[AccountActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
@@ -74,6 +67,11 @@
     <Service Name="CustomerActorService" GeneratedIdRef="ebba1223-1351-4560-9395-5ccabac33806|Persisted">
       <StatefulService ServiceTypeName="CustomerActorServiceType" TargetReplicaSetSize="[CustomerActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CustomerActorService_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[CustomerActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="CreditAccountActorService" GeneratedIdRef="d8ce70a3-1b9a-4b42-befb-6eac6cf452ac|Persisted">
+      <StatefulService ServiceTypeName="CreditAccountActorServiceType" TargetReplicaSetSize="[CreditAccountActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CreditAccountActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[CreditAccountActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
   </DefaultServices>

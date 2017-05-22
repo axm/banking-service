@@ -69,6 +69,7 @@
       <HintPath>..\packages\Microsoft.ServiceFabric.Services.Remoting.2.5.216\lib\net45\Microsoft.ServiceFabric.Services.Remoting.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Fabric, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
       <HintPath>..\packages\Microsoft.ServiceFabric.5.5.216\lib\net45\System.Fabric.dll</HintPath>
@@ -104,9 +105,17 @@
       <Project>{9ACA5C55-9BAE-4BDA-AB0F-7B710C871B54}</Project>
       <Name>CreditAccountActor.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Credits.Data\Credits.Data.csproj">
+      <Project>{A520555D-C1AA-43F1-93DB-E16408C53C8E}</Project>
+      <Name>Credits.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Credits.Domain\Credits.Domain.csproj">
       <Project>{aaf192ff-e715-4390-bdbb-f13cccd76d12}</Project>
       <Name>Credits.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Credits.Interfaces\Credits.Interfaces.csproj">
+      <Project>{104F5AF0-3278-4B43-9B2E-B5D008D3212F}</Project>
+      <Name>Credits.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

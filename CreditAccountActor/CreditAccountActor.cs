@@ -7,6 +7,9 @@ using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Runtime;
 using Microsoft.ServiceFabric.Actors.Client;
 using CreditAccountActor.Interfaces;
+using CreditAccountActor.Interfaces.Params;
+using Credits.Interfaces;
+using Credits.Domain;
 
 namespace CreditAccountActor
 {
@@ -21,19 +24,32 @@ namespace CreditAccountActor
     [StatePersistence(StatePersistence.Persisted)]
     internal class CreditAccountActor : Actor, ICreditAccountActor
     {
-        /// <summary>
-        /// Initializes a new instance of CreditAccountActor
-        /// </summary>
-        /// <param name="actorService">The Microsoft.ServiceFabric.Actors.Runtime.ActorService that will host this actor instance.</param>
-        /// <param name="actorId">The Microsoft.ServiceFabric.Actors.ActorId for this actor instance.</param>
-        public CreditAccountActor(ActorService actorService, ActorId actorId)
+        private readonly ICreditRepository _repository;
+
+        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository)
             : base(actorService, actorId)
         {
+            _repository = repository;
         }
 
         public async Task MakePayment(PaymentParams paymentParams)
         {
-            throw new NotImplementedException();
+            var payment = new Payment
+            {
+                Amount = paymentParams.Amount
+            };
+
+            await _repository.MakePayment(payment);
+        }
+
+        public async Task MakeTransaction(TransactionParams transactionParams)
+        {
+            var transaction = new Transaction
+            {
+                Amount = transactionParams.Amount
+            };
+
+            await _repository.MakeTransaction(transaction);
         }
     }
 }
