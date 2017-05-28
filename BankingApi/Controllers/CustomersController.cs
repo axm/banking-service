@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace BankingApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Credit")]
-    public class CreditController : Controller
+    [Route("api/Customers")]
+    public class CustomersController : Controller
     {
     }
 }

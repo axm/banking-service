@@ -18,7 +18,7 @@ namespace CreditAccountActor.Interfaces
     {
         public ICreditAccountActor Create(CreditAccountGuid id)
         {
-            return ActorProxy.Create<ICreditAccountActor>(new Microsoft.ServiceFabric.Actors.ActorId(id), new Uri(""));
+            return ActorProxy.Create<ICreditAccountActor>(new Microsoft.ServiceFabric.Actors.ActorId(id), new Uri("fabric:/BankingService/CreditAccountActorService"));
         }
     }
 }

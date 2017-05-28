@@ -4,8 +4,10 @@ using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors.Runtime;
-using Credits.Data;
+using CreditAccountActor.Repository;
 using System.Configuration;
+using CreditTransactionsActor.Interfaces;
+using CreditPaymentsActor.Interfaces;
 
 namespace CreditAccountActor
 {
@@ -24,9 +26,11 @@ namespace CreditAccountActor
                 // For more information, see https://aka.ms/servicefabricactorsplatform
 
                 var repository = new CreditRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
+                var creditTransactionsFactory = new CreditTransactionsActorFactory();
+                var creditPaymentsFactory = new CreditPaymentsActorFactory();
 
                 ActorRuntime.RegisterActorAsync<CreditAccountActor>(
-                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new CreditAccountActor(svc, id, repository))).GetAwaiter().GetResult();
+                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new CreditAccountActor(svc, id, repository, creditTransactionsFactory, creditPaymentsFactory))).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }

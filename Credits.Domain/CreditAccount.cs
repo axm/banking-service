@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Credits.Interfaces.Validations
+namespace Credits.Domain
 {
-    public interface ITransactionValidation
+    public class CreditAccount
     {
+        public CreditAccountGuid Id { get; set; }
+
     }
 }

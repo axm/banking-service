@@ -10,6 +10,8 @@ using CreditAccountActor.Interfaces;
 using CreditAccountActor.Interfaces.Params;
 using Credits.Interfaces;
 using Credits.Domain;
+using CreditTransactionsActor.Interfaces;
+using CreditPaymentsActor.Interfaces;
 
 namespace CreditAccountActor
 {
@@ -25,31 +27,44 @@ namespace CreditAccountActor
     internal class CreditAccountActor : Actor, ICreditAccountActor
     {
         private readonly ICreditRepository _repository;
+        private readonly ICreditTransactionsActorFactory _creditTransactionsActorFactory;
+        private readonly ICreditPaymentsActorFactory _creditPaymentsActorFactory;
 
-        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository)
+        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository, ICreditTransactionsActorFactory creditTransactionsActorFactory, ICreditPaymentsActorFactory creditPaymentsActorFactory)
             : base(actorService, actorId)
         {
             _repository = repository;
+            _creditTransactionsActorFactory = creditTransactionsActorFactory;
+            _creditPaymentsActorFactory = creditPaymentsActorFactory;
         }
 
         public async Task MakePayment(PaymentParams paymentParams)
         {
             var payment = new Payment
             {
-                Amount = paymentParams.Amount
+                Amount = paymentParams.Amount,
+                FromAccountId = paymentParams.FromAccountId,
+                Timestamp = DateTimeOffset.Now,
+                CreditAccountId = paymentParams.Id,
+                PaymentId = new PaymentGuid()
             };
 
             await _repository.MakePayment(payment);
+            await _repository.BackupPayment(payment);
         }
 
         public async Task MakeTransaction(TransactionParams transactionParams)
         {
             var transaction = new Transaction
             {
+                TransactionId = new TransactionGuid(),
+                CreditAccountId = transactionParams.Id,
+                Timestamp = DateTimeOffset.Now,
                 Amount = transactionParams.Amount
             };
 
             await _repository.MakeTransaction(transaction);
+            await _repository.BackupTransaction(transaction);
         }
     }
 }

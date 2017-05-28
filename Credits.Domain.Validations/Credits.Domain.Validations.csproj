@@ -45,6 +45,10 @@
     <Compile Include="TransactionValidation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Credits.Interfaces.Validations\Credits.Interfaces.Validations.csproj">
+      <Project>{8CE2B8C5-29AD-4FD8-BDEC-931FAEF85916}</Project>
+      <Name>Credits.Interfaces.Validations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Credits.Interfaces\Credits.Interfaces.csproj">
       <Project>{104F5AF0-3278-4B43-9B2E-B5D008D3212F}</Project>
       <Name>Credits.Interfaces</Name>

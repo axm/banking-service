@@ -9,7 +9,9 @@ namespace Credits.Interfaces
 {
     public interface ICreditRepository
     {
+        Task BackupPayment(Payment payment);
         Task MakePayment(Payment payment);
-        Task MakeTransaction(Transaction transactionParams);
+        Task MakeTransaction(Transaction transaction);
+        Task BackupTransaction(Transaction transaction);
     }
 }

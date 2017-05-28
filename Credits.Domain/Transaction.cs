@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Banking.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,6 @@ namespace Credits.Domain
         public TransactionGuid TransactionId { get; set; }
         public CreditAccountGuid CreditAccountId { get; set; }
         public DateTimeOffset Timestamp { get; set; }
-        public decimal Amount { get; set; }
+        public Money Amount { get; set; }
     }
 }
