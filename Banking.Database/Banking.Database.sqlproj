@@ -59,6 +59,7 @@
     <Folder Include="Properties" />
     <Folder Include="Tables" />
     <Folder Include="Schema" />
+    <Folder Include="StoredProcedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\AccountData.sql" />
@@ -71,6 +72,9 @@
     <Build Include="Tables\Credit.Transaction.sql" />
     <Build Include="Tables\Credit.PendingPayment.sql" />
     <Build Include="Tables\Credit.PendingTransaction.sql" />
+    <Build Include="Tables\Credit.CreditCard.sql" />
+    <Build Include="StoredProcedures\Credit.spProcessTransactions.sql" />
+    <Build Include="StoredProcedures\Credit.spProcessPayments.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Banking.Database.publish.xml" />

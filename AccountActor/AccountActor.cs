@@ -94,5 +94,13 @@ namespace AccountActor
 
             throw new NotImplementedException();
         }
+
+        public async Task VerifyIntegrity()
+        {
+        }
+
+        public async Task SetUpDirectDebit(DirectDebit directDebit)
+        {
+        }
     }
 }

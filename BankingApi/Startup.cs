@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AccountActor.Interfaces;
 using CreditAccountActor.Interfaces;
+using BankingApi.Validation;
 
 namespace BankingApi
 {
@@ -34,6 +35,8 @@ namespace BankingApi
 
             services.AddSingleton<IAccountActorFactory, AccountActorFactory>();
             services.AddSingleton<ICreditAccountActorFactory, CreditAccountActorFactory>();
+            services.AddSingleton<ITransactionValidator, TransactionValidator>();
+            services.AddSingleton<IPaymentValidator, PaymentValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

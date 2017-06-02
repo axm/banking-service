@@ -47,6 +47,8 @@
     <Compile Include="AccountData.cs" />
     <Compile Include="AccountGuid.cs" />
     <Compile Include="AccountSettings.cs" />
+    <Compile Include="DirectDebit.cs" />
+    <Compile Include="DirectDebitGuid.cs" />
     <Compile Include="NotEnoughFundsException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

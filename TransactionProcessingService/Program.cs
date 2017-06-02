@@ -4,6 +4,7 @@ using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Runtime;
+using System.Configuration;
 
 namespace TransactionProcessingService
 {
@@ -21,8 +22,10 @@ namespace TransactionProcessingService
                 // When Service Fabric creates an instance of this service type,
                 // an instance of the class is created in this host process.
 
+                var connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
+
                 ServiceRuntime.RegisterServiceAsync("TransactionProcessingServiceType",
-                    context => new TransactionProcessingService(context)).GetAwaiter().GetResult();
+                    context => new TransactionProcessingService(context, connectionString)).GetAwaiter().GetResult();
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(TransactionProcessingService).Name);
 

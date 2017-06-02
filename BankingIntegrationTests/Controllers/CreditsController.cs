@@ -9,6 +9,7 @@ using CreditTransactionsActor.Interfaces;
 using CreditPaymentsActor.Interfaces;
 using Credits.Domain;
 using CreditAccountActor.Interfaces.Params;
+using BankingIntegrationTests.Attributes;
 
 namespace BankingIntegrationTests.Controllers
 {
@@ -29,6 +30,12 @@ namespace BankingIntegrationTests.Controllers
             _creditPaymentsActorFactory = creditPaymentsActorFactory;
         }
 
+        [BeforeAll]
+        public async Task Setup()
+        {
+
+        }
+
         [HttpGet]
         public async Task MakePayment()
         {
@@ -46,6 +53,7 @@ namespace BankingIntegrationTests.Controllers
         [HttpGet]
         public async Task MakePayments()
         {
+
         }
 
         [HttpGet]

@@ -66,5 +66,10 @@ namespace CreditAccountActor
             await _repository.MakeTransaction(transaction);
             await _repository.BackupTransaction(transaction);
         }
+
+        public async Task VerifyIntegrity()
+        {
+
+        }
     }
 }

@@ -52,7 +52,6 @@
     <Compile Include="Transaction.cs" />
     <Compile Include="TransactionFactory.cs" />
     <Compile Include="TransactionGuid.cs" />
-    <Compile Include="Validations\PaymentValidationSpecifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Accounts.Domain\Accounts.Domain.csproj">

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CreditAccountActor.Interfaces;
 using Accounts.Domain;
+using BankingApi.Validation;
 
 namespace BankingApi.Controllers
 {
@@ -14,15 +15,24 @@ namespace BankingApi.Controllers
     public class CreditsController : Controller
     {
         private readonly ICreditAccountActorFactory _creditAccountActorFactory;
+        private readonly IPaymentValidator _paymentValidator;
+        private readonly ITransactionValidator _transactionValidator;
 
-        public CreditsController(ICreditAccountActorFactory creditAccountActorFactory)
+        public CreditsController(ICreditAccountActorFactory creditAccountActorFactory, ITransactionValidator transactionValidator, IPaymentValidator paymentValidator)
         {
             _creditAccountActorFactory = creditAccountActorFactory;
+            _transactionValidator = transactionValidator;
+            _paymentValidator = paymentValidator;
         }
 
         [HttpPost("MakePayment")]
         public async Task MakePayment([FromBody]MakePaymentParams makePaymentParams)
         {
+            if(!_paymentValidator.Validate(makePaymentParams))
+            {
+                throw new Exception("Invalid parameters.");
+            }
+
             var id = new Credits.Domain.CreditAccountGuid(makePaymentParams.CreditAccountId);
             var actor = _creditAccountActorFactory.Create(id);
 
@@ -38,6 +48,11 @@ namespace BankingApi.Controllers
         [HttpPost("MakeTransaction")]
         public async Task MakeTransaction([FromBody]MakeTransactionParams makeTransactionParams)
         {
+            if(!_transactionValidator.Validate(makeTransactionParams))
+            {
+                throw new Exception("Invalid parameters.");
+            }
+
             var id = new Credits.Domain.CreditAccountGuid(makeTransactionParams.CreditAccountId);
             var actor = _creditAccountActorFactory.Create(id);
 

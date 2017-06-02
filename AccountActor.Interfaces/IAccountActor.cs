@@ -19,5 +19,7 @@ namespace AccountActor.Interfaces
         Task Deposit(decimal money);
         Task Transfer(Guid to, decimal money);
         Task SetOverdraft(decimal money);
+        Task VerifyIntegrity();
+        Task SetUpDirectDebit(DirectDebit directDebit);
     }
 }

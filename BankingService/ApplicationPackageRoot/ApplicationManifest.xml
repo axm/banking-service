@@ -14,6 +14,12 @@
     <Parameter Name="CreditAccountActorService_PartitionCount" DefaultValue="10" />
     <Parameter Name="CreditAccountActorService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="CreditAccountActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="CreditPaymentsActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="CreditPaymentsActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="CreditPaymentsActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="CreditTransactionsActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="CreditTransactionsActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="CreditTransactionsActorService_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -88,6 +94,16 @@
     <Service Name="CreditAccountActorService" GeneratedIdRef="d8ce70a3-1b9a-4b42-befb-6eac6cf452ac|Persisted">
       <StatefulService ServiceTypeName="CreditAccountActorServiceType" TargetReplicaSetSize="[CreditAccountActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CreditAccountActorService_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[CreditAccountActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="CreditPaymentsActorService" GeneratedIdRef="9c444b19-4c31-4205-8c0e-f4eab62658e3|Persisted">
+      <StatefulService ServiceTypeName="CreditPaymentsActorServiceType" TargetReplicaSetSize="[CreditPaymentsActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CreditPaymentsActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[CreditPaymentsActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="CreditTransactionsActorService" GeneratedIdRef="a6561e13-0f65-410c-b031-77fb92dff729|Persisted">
+      <StatefulService ServiceTypeName="CreditTransactionsActorServiceType" TargetReplicaSetSize="[CreditTransactionsActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CreditTransactionsActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[CreditTransactionsActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
   </DefaultServices>
