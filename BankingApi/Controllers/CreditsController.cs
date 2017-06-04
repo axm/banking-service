@@ -63,5 +63,11 @@ namespace BankingApi.Controllers
                 Timestamp = DateTime.Now 
             });
         }
+
+        [HttpPost("SetInterest")]
+        public async Task SetInterest(object param)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

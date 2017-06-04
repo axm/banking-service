@@ -7,23 +7,9 @@ using Microsoft.ServiceFabric.Actors;
 
 namespace CreditTransactionsActor.Interfaces
 {
-    /// <summary>
-    /// This interface defines the methods exposed by an actor.
-    /// Clients use this interface to interact with the actor that implements it.
-    /// </summary>
     public interface ICreditTransactionsActor : IActor
     {
-        /// <summary>
-        /// TODO: Replace with your own actor method.
-        /// </summary>
-        /// <returns></returns>
-        Task<int> GetCountAsync(CancellationToken cancellationToken);
-
-        /// <summary>
-        /// TODO: Replace with your own actor method.
-        /// </summary>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        Task SetCountAsync(int count, CancellationToken cancellationToken);
+        Task<IEnumerable<object>> GetTransactions();
+        Task<IEnumerable<object>> GetTransactionsIncludingPendingTransactions();
     }
 }

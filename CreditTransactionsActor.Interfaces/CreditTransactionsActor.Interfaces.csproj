@@ -85,6 +85,7 @@
     <Compile Include="ICreditTransactionsActorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ICreditTransactionsActor.cs" />
+    <Compile Include="Repository\ITransactionsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

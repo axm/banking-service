@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "BankingService", "BankingService\BankingService.sfproj", "{B06147C8-9B12-4575-9AC6-FA06E457F707}"
 EndProject
@@ -60,6 +60,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditPaymentsActor.Interfaces", "CreditPaymentsActor.Interfaces\CreditPaymentsActor.Interfaces.csproj", "{24ECDA96-F5D5-4734-96AA-CC64B44E7927}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorrectionsService", "CorrectionsService\CorrectionsService.csproj", "{D874F953-2D6D-4251-8A53-D72B9CFD0BBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingPeriodService", "BillingPeriodService\BillingPeriodService.csproj", "{3453974D-284D-4452-9231-48C7DB97878A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Security", "Security", "{B042849F-9D5F-40F2-B5B4-BBFD8B676274}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterestService", "InterestService\InterestService.csproj", "{D0B72789-8A44-4B14-A081-DC96B4AEA006}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -249,6 +255,18 @@ Global
 		{D874F953-2D6D-4251-8A53-D72B9CFD0BBA}.Release|Any CPU.ActiveCfg = Release|x64
 		{D874F953-2D6D-4251-8A53-D72B9CFD0BBA}.Release|x64.ActiveCfg = Release|x64
 		{D874F953-2D6D-4251-8A53-D72B9CFD0BBA}.Release|x64.Build.0 = Release|x64
+		{3453974D-284D-4452-9231-48C7DB97878A}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{3453974D-284D-4452-9231-48C7DB97878A}.Debug|x64.ActiveCfg = Debug|x64
+		{3453974D-284D-4452-9231-48C7DB97878A}.Debug|x64.Build.0 = Debug|x64
+		{3453974D-284D-4452-9231-48C7DB97878A}.Release|Any CPU.ActiveCfg = Release|x64
+		{3453974D-284D-4452-9231-48C7DB97878A}.Release|x64.ActiveCfg = Release|x64
+		{3453974D-284D-4452-9231-48C7DB97878A}.Release|x64.Build.0 = Release|x64
+		{D0B72789-8A44-4B14-A081-DC96B4AEA006}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{D0B72789-8A44-4B14-A081-DC96B4AEA006}.Debug|x64.ActiveCfg = Debug|x64
+		{D0B72789-8A44-4B14-A081-DC96B4AEA006}.Debug|x64.Build.0 = Debug|x64
+		{D0B72789-8A44-4B14-A081-DC96B4AEA006}.Release|Any CPU.ActiveCfg = Release|x64
+		{D0B72789-8A44-4B14-A081-DC96B4AEA006}.Release|x64.ActiveCfg = Release|x64
+		{D0B72789-8A44-4B14-A081-DC96B4AEA006}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -276,5 +294,7 @@ Global
 		{13D9A13A-7506-432E-85DE-BAE85D3D74D8} = {7DF95431-05D6-44D5-A188-5A4F2219427D}
 		{24ECDA96-F5D5-4734-96AA-CC64B44E7927} = {7DF95431-05D6-44D5-A188-5A4F2219427D}
 		{D874F953-2D6D-4251-8A53-D72B9CFD0BBA} = {C94A4690-88E0-409D-9EA3-5449BC3B0CA1}
+		{3453974D-284D-4452-9231-48C7DB97878A} = {C94A4690-88E0-409D-9EA3-5449BC3B0CA1}
+		{D0B72789-8A44-4B14-A081-DC96B4AEA006} = {C94A4690-88E0-409D-9EA3-5449BC3B0CA1}
 	EndGlobalSection
 EndGlobal

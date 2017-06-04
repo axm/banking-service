@@ -11,54 +11,31 @@ namespace BankingIntegrationTests.Controllers
     [Route("api/[controller]")]
     public class TestsController : Controller
     {
+        private readonly IntegrationTestData Data = new IntegrationTestData();
+
+        [HttpGet("RunAll")]
         public async Task RunAll()
         {
-            // get all controllers
-            // run [BeforeAll]
-            // run other methods one by one
-
             Assembly asm = Assembly.GetExecutingAssembly();
+            var controllers = asm.GetTypes()
+                .Where(type => typeof(Controller).IsAssignableFrom(type) && type.IsDefined(typeof(IntegrationTestControllerAttribute)));
 
-            var methods = asm.GetTypes()
-                .Where(type => typeof(Controller).IsAssignableFrom(type)) //filter controllers
-                .SelectMany(type => type.GetMethods());
-            var beforeAll = methods.Where(m => m.IsPublic && m.IsDefined(typeof(BeforeAllAttribute)));
-
-            foreach (var method in beforeAll)
+            foreach (var controller in controllers)
             {
+                var ctrl = Data.Container.GetInstance(controller); //Activator.CreateInstance(controller);
+
+                var beforeAll = controller.GetMethods().Where(m => m.IsPublic && m.IsDefined(typeof(BeforeAllAttribute)));
+                foreach (var method in beforeAll)
+                {
+                    method.Invoke(ctrl, null);
+                }
+
+                var testMethods = controller.GetMethods().Where(m => m.IsPublic && m.IsDefined(typeof(IntegrationTestAttribute)));
+                foreach (var method in testMethods)
+                {
+                    method.Invoke(ctrl, null);
+                }
             }
-        }
-
-        // GET api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

@@ -75,6 +75,8 @@
     <Build Include="Tables\Credit.CreditCard.sql" />
     <Build Include="StoredProcedures\Credit.spProcessTransactions.sql" />
     <Build Include="StoredProcedures\Credit.spProcessPayments.sql" />
+    <Build Include="Schema\Account.sql" />
+    <Build Include="StoredProcedures\Account.spNewAccount.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Banking.Database.publish.xml" />
