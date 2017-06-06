@@ -26,6 +26,8 @@ namespace CreditAccountActor
     [StatePersistence(StatePersistence.Persisted)]
     internal class CreditAccountActor : Actor, ICreditAccountActor
     {
+        private CreditAccount CreditAccount { get; set; }
+        private readonly CreditAccountGuid CreditAccountId;
         private readonly ICreditRepository _repository;
         private readonly ICreditTransactionsActorFactory _creditTransactionsActorFactory;
         private readonly ICreditPaymentsActorFactory _creditPaymentsActorFactory;
@@ -33,6 +35,7 @@ namespace CreditAccountActor
         public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository, ICreditTransactionsActorFactory creditTransactionsActorFactory, ICreditPaymentsActorFactory creditPaymentsActorFactory)
             : base(actorService, actorId)
         {
+            CreditAccountId = new CreditAccountGuid(actorId.GetGuidId());
             _repository = repository;
             _creditTransactionsActorFactory = creditTransactionsActorFactory;
             _creditPaymentsActorFactory = creditPaymentsActorFactory;
@@ -40,6 +43,8 @@ namespace CreditAccountActor
 
         public async Task MakePayment(PaymentParams paymentParams)
         {
+            await LoadIfNecessary();
+
             var payment = new Payment
             {
                 Amount = paymentParams.Amount,
@@ -55,6 +60,8 @@ namespace CreditAccountActor
 
         public async Task MakeTransaction(TransactionParams transactionParams)
         {
+            await LoadIfNecessary();
+
             var transaction = new Transaction
             {
                 TransactionId = new TransactionGuid(),
@@ -65,6 +72,14 @@ namespace CreditAccountActor
 
             await _repository.MakeTransaction(transaction);
             await _repository.BackupTransaction(transaction);
+        }
+
+        private async Task LoadIfNecessary()
+        {
+            if(CreditAccount == null)
+            {
+                CreditAccount = await _repository.Get(CreditAccountId);
+            }
         }
 
         public async Task VerifyIntegrity()

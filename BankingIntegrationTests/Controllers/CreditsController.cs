@@ -37,14 +37,6 @@ namespace BankingIntegrationTests.Controllers
         [BeforeAll]
         public async Task Setup()
         {
-            Console.WriteLine($"Running setup: ${nameof(Setup)}");
-
-            var connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
-
-            using (var connection = new SqlConnection(connectionString))
-            {
-                await connection.ExecuteAsync("Account.spNewAccount", new { IntegrationTestData.Instance.AccountId1, SortCode = "30-62-61", Overdraft = 0, Balance = 2500 }, commandType: System.Data.CommandType.StoredProcedure);
-            }
         }
 
         [HttpGet]

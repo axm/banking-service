@@ -4,6 +4,7 @@ using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Runtime;
+using BillingPeriodService.Repository;
 
 namespace BillingPeriodService
 {
@@ -21,8 +22,10 @@ namespace BillingPeriodService
                 // When Service Fabric creates an instance of this service type,
                 // an instance of the class is created in this host process.
 
+                var repository = new BillingPeriodRepository("");
+
                 ServiceRuntime.RegisterServiceAsync("BillingPeriodServiceType",
-                    context => new BillingPeriodService(context)).GetAwaiter().GetResult();
+                    context => new BillingPeriodService(context, repository)).GetAwaiter().GetResult();
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(BillingPeriodService).Name);
 

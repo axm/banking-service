@@ -13,5 +13,6 @@ namespace Credits.Interfaces
         Task MakePayment(Payment payment);
         Task MakeTransaction(Transaction transaction);
         Task BackupTransaction(Transaction transaction);
+        Task<CreditAccount> Get(CreditAccountGuid creditAccountId);
     }
 }

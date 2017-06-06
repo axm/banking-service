@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace Banking.Domain
 {
-    public class Money
+    public struct Money
     {
-        public decimal Amount { get; private set; }
-
-        public Money()
-        {
-        }
+        public static Money Zero = new Money(0);
+        public readonly decimal Amount;
 
         public Money(decimal amount)
         {

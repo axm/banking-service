@@ -73,5 +73,10 @@ namespace CreditAccountActor.Repository
 
             await transactions.InsertOneAsync(document);
         }
+
+        public async Task<CreditAccount> Get(CreditAccountGuid creditAccountId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

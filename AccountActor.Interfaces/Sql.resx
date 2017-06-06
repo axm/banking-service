@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Account_spSetOverdraft" xml:space="preserve">
+    <value>Account.spSetOverdraft</value>
+  </data>
   <data name="Deposit" xml:space="preserve">
     <value>UPDATE AccountData
 SET Balance = Balance + @Amount
@@ -127,7 +130,7 @@ INSERT INTO dbo.Deposit
 VALUES (NEWID(), @AccountId, GETDATE(), @Amount)</value>
   </data>
   <data name="Get" xml:space="preserve">
-    <value>SELECT ad.AccountId, ad.Balance
+    <value>SELECT ad.AccountId, ad.SortCode, ad.Overdraft, ad.Balance
 FROM AccountData ad
 WHERE ad.AccountId = @AccountId</value>
   </data>

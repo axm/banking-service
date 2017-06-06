@@ -77,6 +77,11 @@
     <Build Include="StoredProcedures\Credit.spProcessPayments.sql" />
     <Build Include="Schema\Account.sql" />
     <Build Include="StoredProcedures\Account.spNewAccount.sql" />
+    <Build Include="Tables\Credit.BillingPeriod.sql" />
+    <Build Include="StoredProcedures\Credit.spGetCurrentBillingPeriod.sql" />
+    <Build Include="StoredProcedures\Credit.spCreateBillingPeriod.sql" />
+    <Build Include="StoredProcedures\Account.spSetOverdraft.sql" />
+    <Build Include="Tables\Account.DirectDebit.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Banking.Database.publish.xml" />

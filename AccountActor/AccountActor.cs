@@ -24,7 +24,7 @@ namespace AccountActor
     internal class AccountActor : Actor, IAccountActor
     {
         private readonly AccountGuid _id;
-        private AccountData _accountData;
+        private AccountData _accountData { get; set; }
         private readonly IAccountRepository _repository;
 
         /// <summary>
@@ -51,6 +51,11 @@ namespace AccountActor
         {
             await LoadIfNecessary();
 
+            if(money > _accountData.Balance)
+            {
+                return false;
+            }
+
             if(await _repository.Withdraw(_id, money))
             { 
                 _accountData = _accountData.Withdraw(money);
@@ -64,15 +69,7 @@ namespace AccountActor
         {
             if(_accountData == null)
             {
-                try
-                {
-                    await Load();
-                }
-                catch (Exception e)
-                {
-                    ActorEventSource.Current.Message("Exception: " + e.Message);
-                    throw;
-                }
+                await Load();
             }
         }
 
@@ -86,13 +83,15 @@ namespace AccountActor
             await LoadIfNecessary();
 
             await _repository.Transfer(_accountData.Id, new AccountGuid(to), amount);
+
+            _accountData = _accountData.Deposit(new Money(amount));
         }
 
-        public async Task SetOverdraft(decimal money)
+        public async Task SetOverdraft(decimal amount)
         {
             await LoadIfNecessary();
 
-            throw new NotImplementedException();
+            await _repository.SetOverdraft(_accountData.Id, amount);
         }
 
         public async Task VerifyIntegrity()

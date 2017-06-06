@@ -13,6 +13,7 @@ namespace AccountActor.Interfaces
         Task<bool> Withdraw(AccountGuid id, Money amount);
         Task Deposit(AccountGuid id, Money amount);
         Task Transfer(AccountGuid id, AccountGuid to, Money amount);
+        Task SetOverdraft(AccountGuid id, Money amount);
     }
 
     public class AccountRepository : IAccountRepository
@@ -41,12 +42,22 @@ namespace AccountActor.Interfaces
                 while(reader.Read())
                 {
                     var accountId = new AccountGuid(reader.GetGuid(0));
-                    var amount = new Money(reader.GetDecimal(1));
+                    var sortCode = new SortCode(reader.GetString(1));
+                    var overdraft = new Money(reader.GetDecimal(2));
+                    var amount = new Money(reader.GetDecimal(3));
 
-                    return new AccountData(accountId, amount);
+                    return new AccountData(accountId, sortCode, overdraft, amount);
                 }
 
                 return null;
+            }
+        }
+
+        public async Task SetOverdraft(AccountGuid id, Money amount)
+        {
+            using (var sql = new SqlConnection(_connectionString))
+            {
+                await sql.ExecuteAsync(Sql.Transfer, new { Id = id.Id, Amount = amount }, commandType: System.Data.CommandType.StoredProcedure);
             }
         }
 

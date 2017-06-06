@@ -36,5 +36,15 @@
     <ProjectReference Include="..\CreditPaymentsActor.Interfaces\CreditPaymentsActor.Interfaces.csproj" />
     <ProjectReference Include="..\CreditTransactionsActor.Interfaces\CreditTransactionsActor.Interfaces.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Common">
+      <HintPath>..\..\..\Libs\Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="connection.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

@@ -61,6 +61,15 @@ namespace AccountActor.Interfaces {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account.spSetOverdraft.
+        /// </summary>
+        internal static string Account_spSetOverdraft {
+            get {
+                return ResourceManager.GetString("Account_spSetOverdraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UPDATE AccountData
         ///SET Balance = Balance + @Amount
         ///WHERE AccountId = @AccountId
@@ -76,7 +85,7 @@ namespace AccountActor.Interfaces {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT ad.AccountId, ad.Balance
+        ///   Looks up a localized string similar to SELECT ad.AccountId, ad.SortCode, ad.Overdraft, ad.Balance
         ///FROM AccountData ad
         ///WHERE ad.AccountId = @AccountId.
         /// </summary>

@@ -6,7 +6,8 @@
 AS
 	BEGIN
 
-		INSERT INTO dbo.AccountData(AccountId, SortCode, Overdraft, Balance)
-		VALUES(@AccountId, @SortCode, @Overdraft, @Balance)
+		IF NOT EXISTS(SELECT NULL FROM dbo.AccountData WHERE AccountId = @AccountId)
+			INSERT INTO dbo.AccountData(AccountId, SortCode, Overdraft, Balance)
+			VALUES(@AccountId, @SortCode, @Overdraft, @Balance)
 
 	END
