@@ -8,6 +8,7 @@ using CreditAccountActor.Repository;
 using System.Configuration;
 using CreditTransactionsActor.Interfaces;
 using CreditPaymentsActor.Interfaces;
+using Common.Services;
 
 namespace CreditAccountActor
 {
@@ -28,9 +29,10 @@ namespace CreditAccountActor
                 var repository = new CreditRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
                 var creditTransactionsFactory = new CreditTransactionsActorFactory();
                 var creditPaymentsFactory = new CreditPaymentsActorFactory();
+                var dateTimeService = new DateTimeService();
 
                 ActorRuntime.RegisterActorAsync<CreditAccountActor>(
-                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new CreditAccountActor(svc, id, repository, creditTransactionsFactory, creditPaymentsFactory))).GetAwaiter().GetResult();
+                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new CreditAccountActor(svc, id, repository, creditTransactionsFactory, creditPaymentsFactory, dateTimeService))).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }

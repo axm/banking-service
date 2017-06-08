@@ -37,17 +37,15 @@ namespace TransactionProcessingService
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
-            //while(true)
-            //{
-            //    // TODO: move this
+            while (true)
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.ExecuteAsync("Credit.spProcessTransactions", commandType: System.Data.CommandType.StoredProcedure);
+                }
 
-            //    using (var connection = new SqlConnection(_connectionString))
-            //    {
-            //        await connection.ExecuteAsync("Credit.spProcessTransactions", commandType: System.Data.CommandType.StoredProcedure);
-            //    }
-
-            //    await Task.Delay(2000);
-            //}
+                await Task.Delay(10000);
+            }
         }
     }
 }

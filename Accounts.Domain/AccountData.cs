@@ -24,7 +24,7 @@ namespace Accounts.Domain
 
         public AccountData Deposit(Money money)
         {
-            return new AccountData(Id, SortCode, Overdraft, Balance + money);
+            return new AccountData(Id, SortCode, Overdraft, new Money(Balance.Amount + money.Amount));
         }
 
         public AccountData Withdraw(Money money)
@@ -34,7 +34,7 @@ namespace Accounts.Domain
                 throw new NotEnoughFundsException();
             }
 
-            return new AccountData(Id, SortCode, Overdraft, Balance - money);
+            return new AccountData(Id, SortCode, Overdraft, new Money(Balance.Amount - money.Amount));
         }
     }
 }

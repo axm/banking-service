@@ -12,6 +12,7 @@ using Credits.Interfaces;
 using Credits.Domain;
 using CreditTransactionsActor.Interfaces;
 using CreditPaymentsActor.Interfaces;
+using Common.Services;
 
 namespace CreditAccountActor
 {
@@ -31,14 +32,16 @@ namespace CreditAccountActor
         private readonly ICreditRepository _repository;
         private readonly ICreditTransactionsActorFactory _creditTransactionsActorFactory;
         private readonly ICreditPaymentsActorFactory _creditPaymentsActorFactory;
+        private readonly IDateTimeService _dateTimeService;
 
-        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository, ICreditTransactionsActorFactory creditTransactionsActorFactory, ICreditPaymentsActorFactory creditPaymentsActorFactory)
+        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository, ICreditTransactionsActorFactory creditTransactionsActorFactory, ICreditPaymentsActorFactory creditPaymentsActorFactory, IDateTimeService dateTimeService)
             : base(actorService, actorId)
         {
             CreditAccountId = new CreditAccountGuid(actorId.GetGuidId());
             _repository = repository;
             _creditTransactionsActorFactory = creditTransactionsActorFactory;
             _creditPaymentsActorFactory = creditPaymentsActorFactory;
+            _dateTimeService = dateTimeService;
         }
 
         public async Task MakePayment(PaymentParams paymentParams)
@@ -71,7 +74,7 @@ namespace CreditAccountActor
             };
 
             await _repository.MakeTransaction(transaction);
-            await _repository.BackupTransaction(transaction);
+            //await _repository.BackupTransaction(transaction);
         }
 
         private async Task LoadIfNecessary()
