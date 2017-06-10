@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CreditAccountActor.Interfaces;
-using CreditTransactionsActor.Interfaces;
 using Credits.Domain;
 using CreditAccountActor.Interfaces.Params;
 using BankingIntegrationTests.Attributes;
@@ -21,13 +20,10 @@ namespace BankingIntegrationTests.Controllers
     public class CreditsController : Controller
     {
         private readonly ICreditAccountActorFactory _creditAccountActorFactory;
-        private readonly ICreditTransactionsActorFactory _creditTransactionsActorFactory;
 
-        public CreditsController(ICreditAccountActorFactory creditAccountActorFactory,
-            ICreditTransactionsActorFactory creditTransactionsActorFactory)
+        public CreditsController(ICreditAccountActorFactory creditAccountActorFactory)
         {
             _creditAccountActorFactory = creditAccountActorFactory;
-            _creditTransactionsActorFactory = creditTransactionsActorFactory;
         }
 
         [BeforeAll]

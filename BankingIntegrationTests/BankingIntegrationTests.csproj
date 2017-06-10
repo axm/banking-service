@@ -33,7 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CreditAccountActor.Interfaces\CreditAccountActor.Interfaces.csproj" />
-    <ProjectReference Include="..\CreditTransactionsActor.Interfaces\CreditTransactionsActor.Interfaces.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Common">

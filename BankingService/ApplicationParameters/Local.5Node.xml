@@ -11,6 +11,5 @@
     <Parameter Name="AccountActorService_PartitionCount" Value="1" />
     <Parameter Name="CustomerActorService_PartitionCount" Value="1" />
     <Parameter Name="CreditAccountActorService_PartitionCount" Value="1" />
-    <Parameter Name="CreditTransactionsActorService_PartitionCount" Value="1" />
   </Parameters>
 </Application>

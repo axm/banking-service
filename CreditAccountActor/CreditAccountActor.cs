@@ -10,7 +10,6 @@ using CreditAccountActor.Interfaces;
 using CreditAccountActor.Interfaces.Params;
 using Credits.Interfaces;
 using Credits.Domain;
-using CreditTransactionsActor.Interfaces;
 using Common.Services;
 
 namespace CreditAccountActor
@@ -29,15 +28,13 @@ namespace CreditAccountActor
         private CreditAccount CreditAccount { get; set; }
         private readonly CreditAccountGuid CreditAccountId;
         private readonly ICreditRepository _repository;
-        private readonly ICreditTransactionsActorFactory _creditTransactionsActorFactory;
         private readonly IDateTimeService _dateTimeService;
 
-        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository, ICreditTransactionsActorFactory creditTransactionsActorFactory, IDateTimeService dateTimeService)
+        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository, IDateTimeService dateTimeService)
             : base(actorService, actorId)
         {
             CreditAccountId = new CreditAccountGuid(actorId.GetGuidId());
             _repository = repository;
-            _creditTransactionsActorFactory = creditTransactionsActorFactory;
             _dateTimeService = dateTimeService;
         }
 

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors.Runtime;
 using CreditAccountActor.Repository;
 using System.Configuration;
-using CreditTransactionsActor.Interfaces;
 using Common.Services;
 
 namespace CreditAccountActor
@@ -26,11 +25,10 @@ namespace CreditAccountActor
                 // For more information, see https://aka.ms/servicefabricactorsplatform
 
                 var repository = new CreditRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
-                var creditTransactionsFactory = new CreditTransactionsActorFactory();
                 var dateTimeService = new DateTimeService();
 
                 ActorRuntime.RegisterActorAsync<CreditAccountActor>(
-                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new CreditAccountActor(svc, id, repository, creditTransactionsFactory, dateTimeService))).GetAwaiter().GetResult();
+                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new CreditAccountActor(svc, id, repository, dateTimeService))).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }

@@ -155,10 +155,6 @@
       <Project>{104F5AF0-3278-4B43-9B2E-B5D008D3212F}</Project>
       <Name>Credits.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CreditTransactionsActor.Interfaces\CreditTransactionsActor.Interfaces.csproj">
-      <Project>{19E2AF0A-CCA3-4514-A77E-873987717C27}</Project>
-      <Name>CreditTransactionsActor.Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Repository\Sql.resx">
