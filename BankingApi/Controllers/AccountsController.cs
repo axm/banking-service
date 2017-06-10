@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using AccountActor.Interfaces;
 using Accounts.Domain;
 using BankingApi.Params;
+using Banking.Domain;
 
 namespace BankingApi.Controllers
 {
@@ -25,7 +26,7 @@ namespace BankingApi.Controllers
         {
             var actor = _accountActorFactory.Create(new AccountGuid(withdrawParams.AccountId));
 
-            await actor.Withdraw(withdrawParams.Amount);
+            await actor.Withdraw(new Money(withdrawParams.Amount));
         }
 
         [HttpPost("Deposit")]
@@ -33,14 +34,14 @@ namespace BankingApi.Controllers
         {
             var actor = _accountActorFactory.Create(new AccountGuid(depositParams.AccountId));
 
-            await actor.Deposit(depositParams.Money);
+            await actor.Deposit(new Money(depositParams.Money));
         }
 
         [HttpPost("Transfer")]
         public async Task Transfer([FromBody]TransferParams transferParams)
         {
             var actor = _accountActorFactory.Create(new AccountGuid(transferParams.From));
-            await actor.Transfer(transferParams.To, transferParams.Amount);
+            await actor.Transfer(new AccountGuid(transferParams.To), new Money(transferParams.Amount));
         }
     }
 }

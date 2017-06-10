@@ -15,11 +15,12 @@ namespace AccountActor.Interfaces
     /// </summary>
     public interface IAccountActor : IActor
     {
-        Task<bool> Withdraw(decimal money);
-        Task Deposit(decimal money);
-        Task Transfer(Guid to, decimal money);
-        Task SetOverdraft(decimal money);
+        Task<bool> Withdraw(Money money);
+        Task Deposit(Money money);
+        Task Transfer(AccountGuid to, Money money);
+        Task SetOverdraft(Money money);
         Task VerifyIntegrity();
-        Task SetUpDirectDebit(DirectDebit directDebit);
+        Task PutDirectDebit(DirectDebit directDebit);
+        Task DeleteDirectDebit(DirectDebitGuid directDebitId);
     }
 }

@@ -1,12 +1,8 @@
 ﻿using Accounts.Domain;
 using CreditAccountActor.Interfaces;
-using CreditPaymentsActor.Interfaces;
 using CreditTransactionsActor.Interfaces;
 using SimpleInjector;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BankingIntegrationTests.Controllers
 {
@@ -26,7 +22,6 @@ namespace BankingIntegrationTests.Controllers
         {
             Container.Register<ICreditAccountActorFactory, CreditAccountActorFactory>();
             Container.Register<ICreditTransactionsActorFactory, CreditTransactionsActorFactory>();
-            Container.Register<ICreditPaymentsActorFactory, CreditPaymentsActorFactory>();
             Container.Register<CreditsController>();
             Container.Register<AccountsController>();
         }

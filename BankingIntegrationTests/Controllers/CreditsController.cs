@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CreditAccountActor.Interfaces;
 using CreditTransactionsActor.Interfaces;
-using CreditPaymentsActor.Interfaces;
 using Credits.Domain;
 using CreditAccountActor.Interfaces.Params;
 using BankingIntegrationTests.Attributes;
@@ -23,15 +22,12 @@ namespace BankingIntegrationTests.Controllers
     {
         private readonly ICreditAccountActorFactory _creditAccountActorFactory;
         private readonly ICreditTransactionsActorFactory _creditTransactionsActorFactory;
-        private readonly ICreditPaymentsActorFactory _creditPaymentsActorFactory;
 
         public CreditsController(ICreditAccountActorFactory creditAccountActorFactory,
-            ICreditTransactionsActorFactory creditTransactionsActorFactory,
-            ICreditPaymentsActorFactory creditPaymentsActorFactory)
+            ICreditTransactionsActorFactory creditTransactionsActorFactory)
         {
             _creditAccountActorFactory = creditAccountActorFactory;
             _creditTransactionsActorFactory = creditTransactionsActorFactory;
-            _creditPaymentsActorFactory = creditPaymentsActorFactory;
         }
 
         [BeforeAll]

@@ -11,7 +11,6 @@ using CreditAccountActor.Interfaces.Params;
 using Credits.Interfaces;
 using Credits.Domain;
 using CreditTransactionsActor.Interfaces;
-using CreditPaymentsActor.Interfaces;
 using Common.Services;
 
 namespace CreditAccountActor
@@ -31,16 +30,14 @@ namespace CreditAccountActor
         private readonly CreditAccountGuid CreditAccountId;
         private readonly ICreditRepository _repository;
         private readonly ICreditTransactionsActorFactory _creditTransactionsActorFactory;
-        private readonly ICreditPaymentsActorFactory _creditPaymentsActorFactory;
         private readonly IDateTimeService _dateTimeService;
 
-        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository, ICreditTransactionsActorFactory creditTransactionsActorFactory, ICreditPaymentsActorFactory creditPaymentsActorFactory, IDateTimeService dateTimeService)
+        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository, ICreditTransactionsActorFactory creditTransactionsActorFactory, IDateTimeService dateTimeService)
             : base(actorService, actorId)
         {
             CreditAccountId = new CreditAccountGuid(actorId.GetGuidId());
             _repository = repository;
             _creditTransactionsActorFactory = creditTransactionsActorFactory;
-            _creditPaymentsActorFactory = creditPaymentsActorFactory;
             _dateTimeService = dateTimeService;
         }
 
@@ -58,12 +55,18 @@ namespace CreditAccountActor
             };
 
             await _repository.MakePayment(payment);
-            await _repository.BackupPayment(payment);
+
+            CreditAccount = new CreditAccount(CreditAccountId, CreditAccount.Limit, CreditAccount.Interest, CreditAccount.Usage - payment.Amount, CreditAccount.AvailableFunds + payment.Amount);
         }
 
         public async Task MakeTransaction(TransactionParams transactionParams)
         {
             await LoadIfNecessary();
+
+            if(CreditAccount.AvailableFunds < transactionParams.Amount)
+            {
+                throw new InvalidOperationException();
+            }
 
             var transaction = new Transaction
             {
@@ -74,7 +77,8 @@ namespace CreditAccountActor
             };
 
             await _repository.MakeTransaction(transaction);
-            //await _repository.BackupTransaction(transaction);
+
+            CreditAccount = new CreditAccount(CreditAccountId, CreditAccount.Limit, CreditAccount.Interest, CreditAccount.Usage + transaction.Amount, CreditAccount.AvailableFunds - transaction.Amount);
         }
 
         private async Task LoadIfNecessary()

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using CreditAccountActor.Interfaces;
 using Accounts.Domain;
 using BankingApi.Validation;
+using Banking.Domain;
 
 namespace BankingApi.Controllers
 {
@@ -40,7 +41,7 @@ namespace BankingApi.Controllers
             {
                 Id = id,
                 FromAccountId = new AccountGuid(makePaymentParams.AccountId),
-                Amount = makePaymentParams.Amount,
+                Amount = new Money(makePaymentParams.Amount),
                 Timestamp = DateTime.Now
             });
         }
@@ -59,7 +60,7 @@ namespace BankingApi.Controllers
             await actor.MakeTransaction(new CreditAccountActor.Interfaces.Params.TransactionParams
             {
                 Id = id,
-                Amount = makeTransactionParams.Amount,
+                Amount = new Money(makeTransactionParams.Amount),
                 Timestamp = DateTime.Now 
             });
         }

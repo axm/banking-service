@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Banking.Domain
 {
+    [DataContract]
     public struct Money
     {
         public static Money Zero = new Money(0);
+        [DataMember]
         public readonly decimal Amount;
 
         public Money(decimal amount)

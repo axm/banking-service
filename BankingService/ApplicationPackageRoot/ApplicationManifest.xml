@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="BankingServiceType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
+    <Parameter Name="DirectDebitService_InstanceCount" DefaultValue="-1" />
     <Parameter Name="InterestService_InstanceCount" DefaultValue="-1" />
     <Parameter Name="BillingPeriodService_InstanceCount" DefaultValue="-1" />
     <Parameter Name="CorrectionsService_InstanceCount" DefaultValue="-1" />
@@ -16,9 +17,6 @@
     <Parameter Name="CreditAccountActorService_PartitionCount" DefaultValue="10" />
     <Parameter Name="CreditAccountActorService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="CreditAccountActorService_TargetReplicaSetSize" DefaultValue="3" />
-    <Parameter Name="CreditPaymentsActorService_PartitionCount" DefaultValue="10" />
-    <Parameter Name="CreditPaymentsActorService_MinReplicaSetSize" DefaultValue="3" />
-    <Parameter Name="CreditPaymentsActorService_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="CreditTransactionsActorService_PartitionCount" DefaultValue="10" />
     <Parameter Name="CreditTransactionsActorService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="CreditTransactionsActorService_TargetReplicaSetSize" DefaultValue="3" />
@@ -26,6 +24,10 @@
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="DirectDebitServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="InterestServicePkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides />
@@ -37,9 +39,6 @@
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="CorrectionsServicePkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides />
-  </ServiceManifestImport>
-  <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="CreditPaymentsActorPkg" ServiceManifestVersion="1.0.0" />
   </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="CreditTransactionsActorPkg" ServiceManifestVersion="1.0.0" />
@@ -71,6 +70,11 @@
          ServiceFabric PowerShell module.
          
          The attribute ServiceTypeName below must match the name defined in the imported ServiceManifest.xml file. -->
+    <Service Name="DirectDebitService">
+      <StatelessService ServiceTypeName="DirectDebitServiceType" InstanceCount="[DirectDebitService_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
     <Service Name="InterestService">
       <StatelessService ServiceTypeName="InterestServiceType" InstanceCount="[InterestService_InstanceCount]">
         <SingletonPartition />
@@ -114,11 +118,6 @@
     <Service Name="CreditAccountActorService" GeneratedIdRef="d8ce70a3-1b9a-4b42-befb-6eac6cf452ac|Persisted">
       <StatefulService ServiceTypeName="CreditAccountActorServiceType" TargetReplicaSetSize="[CreditAccountActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CreditAccountActorService_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[CreditAccountActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
-      </StatefulService>
-    </Service>
-    <Service Name="CreditPaymentsActorService" GeneratedIdRef="9c444b19-4c31-4205-8c0e-f4eab62658e3|Persisted">
-      <StatefulService ServiceTypeName="CreditPaymentsActorServiceType" TargetReplicaSetSize="[CreditPaymentsActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CreditPaymentsActorService_MinReplicaSetSize]">
-        <UniformInt64Partition PartitionCount="[CreditPaymentsActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
     <Service Name="CreditTransactionsActorService" GeneratedIdRef="a6561e13-0f65-410c-b031-77fb92dff729|Persisted">

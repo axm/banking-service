@@ -39,7 +39,7 @@ namespace AccountActor
             _repository = repository;
         }
 
-        public async Task Deposit(decimal money)
+        public async Task Deposit(Money money)
         {
             await LoadIfNecessary();
 
@@ -47,7 +47,7 @@ namespace AccountActor
             _accountData = _accountData.Deposit(money);
         }
 
-        public async Task<bool> Withdraw(decimal money)
+        public async Task<bool> Withdraw(Money money)
         {
             await LoadIfNecessary();
 
@@ -78,16 +78,21 @@ namespace AccountActor
             _accountData = await _repository.Get(_id);
         }
 
-        public async Task Transfer(Guid to, decimal amount)
+        public async Task Transfer(AccountGuid to, Money amount)
         {
             await LoadIfNecessary();
 
-            await _repository.Transfer(_accountData.Id, new AccountGuid(to), amount);
+            if(_accountData.Balance < amount)
+            {
+                throw new InvalidOperationException();
+            }
 
-            _accountData = _accountData.Deposit(new Money(amount));
+            await _repository.Transfer(_accountData.Id, to, amount);
+
+            _accountData = _accountData.Withdraw(new Money(amount));
         }
 
-        public async Task SetOverdraft(decimal amount)
+        public async Task SetOverdraft(Money amount)
         {
             await LoadIfNecessary();
 
@@ -98,8 +103,13 @@ namespace AccountActor
         {
         }
 
-        public async Task SetUpDirectDebit(DirectDebit directDebit)
+        public async Task PutDirectDebit(DirectDebit directDebit)
         {
+        }
+
+        public async Task DeleteDirectDebit(DirectDebitGuid directDebitId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

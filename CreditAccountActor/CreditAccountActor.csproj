@@ -147,10 +147,6 @@
       <Project>{9ACA5C55-9BAE-4BDA-AB0F-7B710C871B54}</Project>
       <Name>CreditAccountActor.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CreditPaymentsActor.Interfaces\CreditPaymentsActor.Interfaces.csproj">
-      <Project>{24ECDA96-F5D5-4734-96AA-CC64B44E7927}</Project>
-      <Name>CreditPaymentsActor.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Credits.Domain\Credits.Domain.csproj">
       <Project>{aaf192ff-e715-4390-bdbb-f13cccd76d12}</Project>
       <Name>Credits.Domain</Name>
