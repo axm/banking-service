@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors.Runtime;
 using AccountActor.Interfaces;
 using System.Configuration;
+using Common.Services;
 
 namespace AccountActor
 {
@@ -23,10 +24,11 @@ namespace AccountActor
                 // are automatically populated when you build this project.
                 // For more information, see https://aka.ms/servicefabricactorsplatform
 
-                var repository = new AccountRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
+                var repository = new AccountRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString, ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString);
+                var dateTimeService = new DateTimeService();
 
                 ActorRuntime.RegisterActorAsync<AccountActor>(
-                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new AccountActor(svc, id, repository))).GetAwaiter().GetResult();
+                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new AccountActor(svc, id, repository, dateTimeService))).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }

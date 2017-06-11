@@ -22,5 +22,6 @@ namespace AccountActor.Interfaces
         Task VerifyIntegrity();
         Task PutDirectDebit(DirectDebit directDebit);
         Task DeleteDirectDebit(DirectDebitGuid directDebitId);
+        Task<AccountInfo> GetAccountInfo(MonthYear monthYear);
     }
 }

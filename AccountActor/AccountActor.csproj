@@ -116,6 +116,10 @@
       <Project>{3f44f6a8-b565-46e8-a8df-0de5ef9a036b}</Project>
       <Name>Banking.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common.Services\Common.Services.csproj">
+      <Project>{768657AF-30B0-4822-AEC8-4AC7B122D18D}</Project>
+      <Name>Common.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.ServiceFabric.Actors.2.5.216\build\Microsoft.ServiceFabric.Actors.targets" Condition="Exists('..\packages\Microsoft.ServiceFabric.Actors.2.5.216\build\Microsoft.ServiceFabric.Actors.targets')" />

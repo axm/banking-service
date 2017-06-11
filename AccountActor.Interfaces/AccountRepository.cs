@@ -4,6 +4,9 @@ using System;
 using System.Threading.Tasks;
 using Dapper;
 using System.Data.SqlClient;
+using System.Collections.Generic;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace AccountActor.Interfaces
 {
@@ -14,15 +17,20 @@ namespace AccountActor.Interfaces
         Task Deposit(AccountGuid id, Money amount);
         Task Transfer(AccountGuid id, AccountGuid to, Money amount);
         Task SetOverdraft(AccountGuid id, Money amount);
+        Task<IEnumerable<Transaction>> GetTransactions(AccountGuid id, DateTimeOffset fromDate);
     }
 
     public class AccountRepository : IAccountRepository
     {
         private readonly string _connectionString;
+        private readonly string _mongoConnectionString;
+        private readonly MongoClient _mongoClient;
 
-        public AccountRepository(string connectionString)
+        public AccountRepository(string connectionString, string mongoConnectionString)
         {
             _connectionString = connectionString;
+            _mongoConnectionString = mongoConnectionString;
+            _mongoClient = new MongoClient(_mongoConnectionString);
         }
 
         public async Task Deposit(AccountGuid id, Money amount)
@@ -31,6 +39,15 @@ namespace AccountActor.Interfaces
             {
                 await sql.ExecuteAsync(Sql.Deposit, new { AccountId = id.Id, Amount = amount.Amount });
             }
+
+            var deposits = _mongoClient.GetDatabase("local").GetCollection<BsonDocument>("deposits");
+
+            var document = new BsonDocument
+            {
+
+            };
+
+            await deposits.InsertOneAsync(document);
         }
 
         public async Task<AccountData> Get(AccountGuid id)
@@ -46,11 +63,16 @@ namespace AccountActor.Interfaces
                     var overdraft = new Money(reader.GetDecimal(2));
                     var amount = new Money(reader.GetDecimal(3));
 
-                    return new AccountData(accountId, sortCode, overdraft, amount);
+                    return new AccountData(accountId, sortCode, overdraft, amount, new Dictionary<MonthYear, IEnumerable<Transaction>>());
                 }
 
                 return null;
             }
+        }
+
+        public async Task<IEnumerable<Transaction>> GetTransactions(AccountGuid id, DateTimeOffset fromDate)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task SetOverdraft(AccountGuid id, Money amount)

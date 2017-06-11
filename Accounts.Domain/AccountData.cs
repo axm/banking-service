@@ -13,18 +13,20 @@ namespace Accounts.Domain
         public readonly SortCode SortCode;
         public readonly Money Overdraft;
         public readonly Money Balance;
+        public readonly IDictionary<MonthYear, IEnumerable<Transaction>> Transactions;
 
-        public AccountData(AccountGuid id, SortCode sortCode, Money overdraft, Money balance)
+        public AccountData(AccountGuid id, SortCode sortCode, Money overdraft, Money balance, IDictionary<MonthYear, IEnumerable<Transaction>> transactions)
         {
             Id = id;
             SortCode =  sortCode;
             Overdraft = overdraft;
             Balance = balance;
+            Transactions = transactions;
         }
 
         public AccountData Deposit(Money money)
         {
-            return new AccountData(Id, SortCode, Overdraft, new Money(Balance.Amount + money.Amount));
+            return new AccountData(Id, SortCode, Overdraft, new Money(Balance.Amount + money.Amount), Transactions);
         }
 
         public AccountData Withdraw(Money money)
@@ -34,7 +36,7 @@ namespace Accounts.Domain
                 throw new NotEnoughFundsException();
             }
 
-            return new AccountData(Id, SortCode, Overdraft, new Money(Balance.Amount - money.Amount));
+            return new AccountData(Id, SortCode, Overdraft, new Money(Balance.Amount - money.Amount), Transactions);
         }
     }
 }
