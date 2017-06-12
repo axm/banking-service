@@ -17,10 +17,16 @@
     <Parameter Name="CreditAccountActorService_PartitionCount" DefaultValue="10" />
     <Parameter Name="CreditAccountActorService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="CreditAccountActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="AccountWithdrawalActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="AccountWithdrawalActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="AccountWithdrawalActorService_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="AccountWithdrawalActorPkg" ServiceManifestVersion="1.0.0" />
+  </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="DirectDebitServicePkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides />
@@ -112,6 +118,11 @@
     <Service Name="CreditAccountActorService" GeneratedIdRef="d8ce70a3-1b9a-4b42-befb-6eac6cf452ac|Persisted">
       <StatefulService ServiceTypeName="CreditAccountActorServiceType" TargetReplicaSetSize="[CreditAccountActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CreditAccountActorService_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[CreditAccountActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="AccountWithdrawalActorService" GeneratedIdRef="ca02b024-84fe-40ba-8d80-9d5b83f426e5|Persisted">
+      <StatefulService ServiceTypeName="AccountWithdrawalActorServiceType" TargetReplicaSetSize="[AccountWithdrawalActorService_TargetReplicaSetSize]" MinReplicaSetSize="[AccountWithdrawalActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[AccountWithdrawalActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
   </DefaultServices>

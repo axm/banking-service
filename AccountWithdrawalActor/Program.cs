@@ -4,12 +4,10 @@ using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors.Runtime;
-using AccountActor.Interfaces;
-using System.Configuration;
-using Common.Services;
 using AccountWithdrawalActor.Interfaces;
+using System.Configuration;
 
-namespace AccountActor
+namespace AccountWithdrawalActor
 {
     internal static class Program
     {
@@ -25,12 +23,10 @@ namespace AccountActor
                 // are automatically populated when you build this project.
                 // For more information, see https://aka.ms/servicefabricactorsplatform
 
-                var repository = new AccountRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString, ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString);
-                var dateTimeService = new DateTimeService();
-                var accountWithdrawalsFactory = new AccountWithdrawalActorFactory();
+                var repository = new AccountWithdrawalRepository(ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString);
 
-                ActorRuntime.RegisterActorAsync<AccountActor>(
-                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new AccountActor(svc, id, repository, dateTimeService, accountWithdrawalsFactory))).GetAwaiter().GetResult();
+                ActorRuntime.RegisterActorAsync<AccountWithdrawalActor>(
+                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new AccountWithdrawalActor(svc, id, repository))).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }

@@ -28,10 +28,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AccountActor\AccountActor.csproj" />
+    <ProjectReference Include="..\AccountWithdrawalActor\AccountWithdrawalActor.csproj" />
     <ProjectReference Include="..\BankingApi\BankingApi.csproj" />
     <ProjectReference Include="..\BankingIntegrationTests\BankingIntegrationTests.csproj" />
-    <ProjectReference Include="..\BillingPeriodService\BillingPeriodService.csproj" />
-    <ProjectReference Include="..\CorrectionsService\CorrectionsService.csproj" />
     <ProjectReference Include="..\CreditAccountActor\CreditAccountActor.csproj" />
     <ProjectReference Include="..\CustomerActor\CustomerActor.csproj" />
     <ProjectReference Include="..\DirectDebitService\DirectDebitService.csproj" />
