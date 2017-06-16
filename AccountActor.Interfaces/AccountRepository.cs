@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Collections.Generic;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Base.Types;
 
 namespace AccountActor.Interfaces
 {
@@ -18,6 +19,11 @@ namespace AccountActor.Interfaces
         Task Transfer(AccountGuid id, AccountGuid to, Money amount);
         Task SetOverdraft(AccountGuid id, Money amount);
         Task<IEnumerable<Transaction>> GetTransactions(AccountGuid id, DateTimeOffset fromDate);
+        Task<IEnumerable<NewTransaction>> GetNewTransactions(AccountGuid id, DateTimeOffset? fromDate = null);
+        Task PutBalance(AccountGuid accountGuid, Money balance);
+        Task PostDirectDebit(DirectDebit directDebit);
+        Task DeleteDirectDebit(DirectDebitGuid directDebitId);
+        Task StoreTransaction(NewTransaction transaction);
     }
 
     public class AccountRepository : IAccountRepository
@@ -75,6 +81,31 @@ namespace AccountActor.Interfaces
             throw new NotImplementedException();
         }
 
+        public async Task PutBalance(AccountGuid accountGuid, Money balance)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task PostDirectDebit(DirectDebit directDebit)
+        {
+            using(var sqlConnection = new SqlConnection(_connectionString))
+            {
+                await sqlConnection.ExecuteAsync("Account.spSetDirectDebit", new {
+                    Id = directDebit.Id.Id,
+                    Amount = directDebit.Amount.Amount,
+                    FromAccountId = directDebit.FromAccountId.Id,
+                    ToAccountId = directDebit.ToAccountId.Id,
+                    StartDate = directDebit.StartDate.UtcDateTime,
+                    Frequency = (int)directDebit.Frequency }, 
+                    commandType: System.Data.CommandType.StoredProcedure);
+            }
+        }
+
+        public async Task DeleteDirectDebit(DirectDebitGuid directDebitId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task SetOverdraft(AccountGuid id, Money amount)
         {
             using (var sql = new SqlConnection(_connectionString))
@@ -97,6 +128,22 @@ namespace AccountActor.Interfaces
             {
                 return await sql.ExecuteScalarAsync<bool>(Sql.Withdraw, new { AccountId = id.Id, Amount = amount.Amount });
             }
+        }
+
+        public async Task StoreTransaction(NewTransaction transaction)
+        {
+            var transactions = _mongoClient.GetDatabase("local").GetCollection<NewTransaction>("transactions");
+
+            await transactions.InsertOneAsync(transaction);
+        }
+
+        public async Task<IEnumerable<NewTransaction>> GetNewTransactions(AccountGuid id, DateTimeOffset? fromDate = null)
+        {
+            var transactions = _mongoClient.GetDatabase("local").GetCollection<NewTransaction>("transactions");
+
+            var cursor = await transactions.FindAsync(t => t.InputAccountId == id || t.OutputAccountId == id);
+
+            return await cursor.ToListAsync();
         }
     }
 }

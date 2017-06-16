@@ -2,6 +2,7 @@
 {
     public enum DirectDebitFrequency
     {
+        Once,
         Monthly
     }
 }

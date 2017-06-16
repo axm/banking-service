@@ -24,21 +24,6 @@ namespace Banking.Domain
             Amount = amount;
         }
 
-        //public static Money operator +(Money par1, Money par2)
-        //{
-        //    return par1 + par2;
-        //}
-
-        //public static Money operator -(Money par1, Money par2)
-        //{
-        //    if(par1 < par2)
-        //    {
-        //        throw new InvalidOperationException($"Cannot subtract a bigger value from a smaller value. Param 1: {par1}, Param 2: {par2}");
-        //    }
-
-        //    return (par1 - par2);
-        //}
-
         public static implicit operator decimal(Money money) 
         {
             return money.Amount;

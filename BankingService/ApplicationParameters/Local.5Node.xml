@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/BankingService" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
+    <Parameter Name="CustomersService_InstanceCount" Value="1" />
     <Parameter Name="DirectDebitService_InstanceCount" Value="1" />
-    <Parameter Name="InterestService_InstanceCount" Value="1" />
-    <Parameter Name="BillingPeriodService_InstanceCount" Value="1" />
-    <Parameter Name="CorrectionsService_InstanceCount" Value="1" />
     <Parameter Name="TransactionProcessingService_InstanceCount" Value="1" />
     <Parameter Name="BankingIntegrationTests_InstanceCount" Value="1" />
     <Parameter Name="BankingApi_InstanceCount" Value="1" />

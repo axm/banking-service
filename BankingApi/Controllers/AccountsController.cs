@@ -43,5 +43,29 @@ namespace BankingApi.Controllers
             var actor = _accountActorFactory.Create(new AccountGuid(transferParams.From));
             await actor.Transfer(new AccountGuid(transferParams.To), new Money(transferParams.Amount));
         }
+
+
+
+        [HttpPost("Transactions")]
+        public async Task Transactions([FromBody]TransactionsParams transactionsParams)
+        {
+            var account = transactionsParams.InputAccountId != null ? new AccountGuid(transactionsParams.InputAccountId) : new AccountGuid(transactionsParams.OutputAccountId);
+
+            var actor = _accountActorFactory.Create(account);
+            await actor.ApplyTransaction(transactionsParams.InputAccountId != null ? new AccountGuid(transactionsParams.InputAccountId) : (AccountGuid)null,
+                transactionsParams.OutputAccountId != null ? new AccountGuid(transactionsParams.OutputAccountId) : (AccountGuid)null,
+                DateTimeOffset.Now,
+                transactionsParams.Amount);
+        }
+
+        [HttpPost("DirectDebit")]
+        public async Task DirectDebit([FromBody]DirectDebitParams directDebitParams)
+        {
+            var accountId = new AccountGuid(directDebitParams.AccountId);
+            var toAccountId = new AccountGuid(directDebitParams.ToAccountId);
+
+            var actor = _accountActorFactory.Create(accountId);
+            await actor.PostDirectDebit(directDebitParams.Amount, toAccountId, directDebitParams.StartTime, directDebitParams.Frequency);
+        }
     }
 }

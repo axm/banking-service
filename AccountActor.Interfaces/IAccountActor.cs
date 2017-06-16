@@ -18,10 +18,12 @@ namespace AccountActor.Interfaces
         Task<bool> Withdraw(Money money);
         Task Deposit(Money money);
         Task Transfer(AccountGuid to, Money money);
+        Task ApplyTransaction(AccountGuid inputAccountId, AccountGuid outputAccountId, DateTimeOffset timestamp, Money amount);
         Task SetOverdraft(Money money);
         Task VerifyIntegrity();
-        Task PutDirectDebit(DirectDebit directDebit);
+        Task PostDirectDebit(Money amount, AccountGuid toAccountId, DateTimeOffset startTime, DirectDebitFrequency frequency);
         Task DeleteDirectDebit(DirectDebitGuid directDebitId);
         Task<AccountInfo> GetAccountInfo(MonthYear monthYear);
+        Task ApplyInterest();
     }
 }

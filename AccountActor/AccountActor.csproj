@@ -89,6 +89,7 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountMutator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AccountActor.cs" />
     <Compile Include="Program.cs" />
@@ -119,6 +120,10 @@
     <ProjectReference Include="..\Banking.Domain\Banking.Domain.csproj">
       <Project>{3f44f6a8-b565-46e8-a8df-0de5ef9a036b}</Project>
       <Name>Banking.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Base.Types\Base.Types.csproj">
+      <Project>{3F1B0B69-5598-4246-9557-7B359000F185}</Project>
+      <Name>Base.Types</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common.Services\Common.Services.csproj">
       <Project>{768657AF-30B0-4822-AEC8-4AC7B122D18D}</Project>

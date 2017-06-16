@@ -61,6 +61,10 @@
       <Project>{3F44F6A8-B565-46E8-A8DF-0DE5EF9A036B}</Project>
       <Name>Banking.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Base.Types\Base.Types.csproj">
+      <Project>{3F1B0B69-5598-4246-9557-7B359000F185}</Project>
+      <Name>Base.Types</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

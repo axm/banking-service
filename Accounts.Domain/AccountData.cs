@@ -1,4 +1,5 @@
 ﻿using Banking.Domain;
+using Base.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,10 @@ namespace Accounts.Domain
         public readonly SortCode SortCode;
         public readonly Money Overdraft;
         public readonly Money Balance;
-        public readonly IDictionary<MonthYear, IEnumerable<Transaction>> Transactions;
+        public readonly AccountInterestAlgorithmSpecifier AccountInterestAlgorithmSpecifier;
+        public readonly ICollection<NewTransaction> Transactions;
 
-        public AccountData(AccountGuid id, SortCode sortCode, Money overdraft, Money balance, IDictionary<MonthYear, IEnumerable<Transaction>> transactions)
+        public AccountData(AccountGuid id, SortCode sortCode, Money overdraft, Money balance, ICollection<NewTransaction> transactions)
         {
             Id = id;
             SortCode =  sortCode;

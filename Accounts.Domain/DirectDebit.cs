@@ -18,6 +18,8 @@ namespace Accounts.Domain
         [DataMember]
         public DateTimeOffset StartDate { get; set; }
         [DataMember]
+        public DateTimeOffset? LastRunTimestamp { get; set; }
+        [DataMember]
         public DirectDebitFrequency Frequency { get; set; }
     }
 }

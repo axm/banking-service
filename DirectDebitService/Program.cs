@@ -4,6 +4,7 @@ using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Runtime;
+using System.Configuration;
 
 namespace DirectDebitService
 {
@@ -21,8 +22,11 @@ namespace DirectDebitService
                 // When Service Fabric creates an instance of this service type,
                 // an instance of the class is created in this host process.
 
+                var connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
+                var directDebitRepository = new DirectDebitRepository(connectionString);
+
                 ServiceRuntime.RegisterServiceAsync("DirectDebitServiceType",
-                    context => new DirectDebitService(context)).GetAwaiter().GetResult();
+                    context => new DirectDebitService(context, directDebitRepository)).GetAwaiter().GetResult();
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(DirectDebitService).Name);
 

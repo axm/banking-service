@@ -11,7 +11,7 @@ namespace AccountActor.Tests
 {
     [TestFixture]
     [Author("Alex")]
-    public class DepositTests
+    public class DepositTests : BaseAccountActorTests
     {
         private Mock<IAccountRepository> Repository;
 

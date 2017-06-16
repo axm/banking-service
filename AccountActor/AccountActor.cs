@@ -11,6 +11,7 @@ using Banking.Domain;
 using Accounts.Domain;
 using Common.Services;
 using AccountWithdrawalActor.Interfaces;
+using Base.Types;
 
 namespace AccountActor
 {
@@ -26,10 +27,13 @@ namespace AccountActor
     internal class AccountActor : Actor, IAccountActor
     {
         private readonly AccountGuid _id;
-        private AccountData _accountData { get; set; }
+        private AccountData AccountData { get; set; }
+        private ICollection<NewTransaction> Transactions { get; set; }
         private readonly IAccountRepository _repository;
         private readonly IDateTimeService _dateTimeService;
+        private readonly IAccountActorFactory _accountActorFactory;
         private readonly IAccountWithdrawalActorFactory _accountWithdrawalActorFactory;
+        private AccountMutator AccountMutator;
 
         /// <summary>
         /// Initializes a new instance of AccountActor
@@ -50,21 +54,21 @@ namespace AccountActor
             await LoadIfNecessary();
 
             await _repository.Deposit(_id, money);
-            _accountData = _accountData.Deposit(money);
+            AccountData = AccountData.Deposit(money);
         }
 
         public async Task<bool> Withdraw(Money money)
         {
             await LoadIfNecessary();
 
-            if(money > _accountData.Balance)
+            if(money > AccountData.Balance)
             {
                 return false;
             }
 
             if(await _repository.Withdraw(_id, money))
             { 
-                _accountData = _accountData.Withdraw(money);
+                AccountData = AccountData.Withdraw(money);
                 return true;
             }
 
@@ -76,7 +80,7 @@ namespace AccountActor
 
         private async Task LoadIfNecessary()
         {
-            if(_accountData == null)
+            if(AccountData == null)
             {
                 await Load();
             }
@@ -84,46 +88,87 @@ namespace AccountActor
 
         private async Task Load()
         {
-            _accountData = await _repository.Get(_id);
+            AccountData = await _repository.Get(_id);
+            AccountMutator = new AccountMutator(AccountData);
+
+            var transactions = await _repository.GetNewTransactions(_id, null);
+
+            foreach (var transaction in transactions)
+            {
+                Transactions.Add(transaction);
+
+                AccountMutator.ApplyTransaction(transaction);
+            }
         }
 
         public async Task Transfer(AccountGuid to, Money amount)
         {
             await LoadIfNecessary();
 
-            if(_accountData.Balance < amount)
+            if(AccountData.Balance < amount)
             {
                 throw new InvalidOperationException();
             }
 
-            await _repository.Transfer(_accountData.Id, to, amount);
+            await _repository.Transfer(AccountData.Id, to, amount);
 
-            _accountData = _accountData.Withdraw(new Money(amount));
+            AccountData = AccountData.Withdraw(new Money(amount));
         }
 
         public async Task SetOverdraft(Money amount)
         {
             await LoadIfNecessary();
 
-            await _repository.SetOverdraft(_accountData.Id, amount);
+            await _repository.SetOverdraft(AccountData.Id, amount);
         }
 
         public async Task VerifyIntegrity()
         {
         }
 
-        public async Task PutDirectDebit(DirectDebit directDebit)
+        public async Task PostDirectDebit(Money amount, AccountGuid toAccountId, DateTimeOffset startTime, DirectDebitFrequency frequency)
         {
+            var directDebitId = new DirectDebitGuid();
+
+            var directDebit = new DirectDebit
+            {
+                Id = directDebitId,
+                Amount = amount,
+                FromAccountId = _id,
+                ToAccountId = toAccountId,
+                StartDate = startTime,
+                LastRunTimestamp = null,
+                Frequency = frequency
+            };
+
+            await _repository.PostDirectDebit(directDebit);
         }
 
         public async Task DeleteDirectDebit(DirectDebitGuid directDebitId)
         {
-            throw new NotImplementedException();
+            await _repository.DeleteDirectDebit(directDebitId);
         }
 
         public async Task<AccountInfo> GetAccountInfo(MonthYear monthYear)
         {
             return null;
+        }
+
+        public async Task ApplyInterest()
+        {
+            await LoadIfNecessary();
+
+            throw new NotImplementedException();
+        }
+
+        public async Task ApplyTransaction(AccountGuid inputAccountId, AccountGuid outputAccountId, DateTimeOffset timestamp, Money amount)
+        {
+            await LoadIfNecessary();
+            var transaction = new NewTransaction(new TransactionGuid(), inputAccountId, outputAccountId, timestamp, AccountData.Balance, amount);
+
+            await _repository.StoreTransaction(transaction);
+
+            AccountMutator.ApplyTransaction(transaction);
         }
     }
 }

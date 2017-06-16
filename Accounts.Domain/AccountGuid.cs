@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Accounts.Domain
 {
     [DataContract]
-    public class AccountGuid : TypedGuid
+    public class AccountGuid : Base.Types.TypedGuid
     {
         public AccountGuid() : this(Guid.NewGuid())
         {

@@ -17,6 +17,11 @@ namespace Banking.Domain
             Month = month;
             Year = year;
         }
+
+        public override int GetHashCode()
+        {
+            return Year * 100 + (int)Month;
+        }
     }
 
     public enum Month
@@ -53,6 +58,11 @@ namespace Banking.Domain
         public static explicit operator Year(uint year)
         {
             return new Year(year);
+        }
+
+        public static implicit operator int(Year year)
+        {
+            return (int)year._year;
         }
     }
 }

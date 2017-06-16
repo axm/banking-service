@@ -33,8 +33,8 @@
     <ProjectReference Include="..\BankingIntegrationTests\BankingIntegrationTests.csproj" />
     <ProjectReference Include="..\CreditAccountActor\CreditAccountActor.csproj" />
     <ProjectReference Include="..\CustomerActor\CustomerActor.csproj" />
+    <ProjectReference Include="..\CustomersService\CustomersService.csproj" />
     <ProjectReference Include="..\DirectDebitService\DirectDebitService.csproj" />
-    <ProjectReference Include="..\InterestService\InterestService.csproj" />
     <ProjectReference Include="..\TransactionProcessingService\TransactionProcessingService.csproj" />
   </ItemGroup>
   <ItemGroup>
