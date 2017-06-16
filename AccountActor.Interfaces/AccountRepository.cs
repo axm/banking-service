@@ -18,8 +18,7 @@ namespace AccountActor.Interfaces
         Task Deposit(AccountGuid id, Money amount);
         Task Transfer(AccountGuid id, AccountGuid to, Money amount);
         Task SetOverdraft(AccountGuid id, Money amount);
-        Task<IEnumerable<Transaction>> GetTransactions(AccountGuid id, DateTimeOffset fromDate);
-        Task<IEnumerable<NewTransaction>> GetNewTransactions(AccountGuid id, DateTimeOffset? fromDate = null);
+        Task<IEnumerable<NewTransaction>> GetTransactions(AccountGuid id, DateTimeOffset? fromDate = null);
         Task PutBalance(AccountGuid accountGuid, Money balance);
         Task PostDirectDebit(DirectDebit directDebit);
         Task DeleteDirectDebit(DirectDebitGuid directDebitId);
@@ -69,16 +68,11 @@ namespace AccountActor.Interfaces
                     var overdraft = new Money(reader.GetDecimal(2));
                     var amount = new Money(reader.GetDecimal(3));
 
-                    return new AccountData(accountId, sortCode, overdraft, amount, new Dictionary<MonthYear, IEnumerable<Transaction>>());
+                    return new AccountData(accountId, sortCode, overdraft, amount, new List<NewTransaction>());
                 }
 
                 return null;
             }
-        }
-
-        public async Task<IEnumerable<Transaction>> GetTransactions(AccountGuid id, DateTimeOffset fromDate)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task PutBalance(AccountGuid accountGuid, Money balance)
@@ -137,7 +131,7 @@ namespace AccountActor.Interfaces
             await transactions.InsertOneAsync(transaction);
         }
 
-        public async Task<IEnumerable<NewTransaction>> GetNewTransactions(AccountGuid id, DateTimeOffset? fromDate = null)
+        public async Task<IEnumerable<NewTransaction>> GetTransactions(AccountGuid id, DateTimeOffset? fromDate = null)
         {
             var transactions = _mongoClient.GetDatabase("local").GetCollection<NewTransaction>("transactions");
 

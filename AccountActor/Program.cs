@@ -7,7 +7,6 @@ using Microsoft.ServiceFabric.Actors.Runtime;
 using AccountActor.Interfaces;
 using System.Configuration;
 using Common.Services;
-using AccountWithdrawalActor.Interfaces;
 
 namespace AccountActor
 {
@@ -27,10 +26,9 @@ namespace AccountActor
 
                 var repository = new AccountRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString, ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString);
                 var dateTimeService = new DateTimeService();
-                var accountWithdrawalsFactory = new AccountWithdrawalActorFactory();
 
                 ActorRuntime.RegisterActorAsync<AccountActor>(
-                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new AccountActor(svc, id, repository, dateTimeService, accountWithdrawalsFactory))).GetAwaiter().GetResult();
+                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new AccountActor(svc, id, repository, dateTimeService))).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }

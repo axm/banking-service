@@ -10,7 +10,6 @@ using AccountActor.Interfaces;
 using Banking.Domain;
 using Accounts.Domain;
 using Common.Services;
-using AccountWithdrawalActor.Interfaces;
 using Base.Types;
 
 namespace AccountActor
@@ -32,7 +31,6 @@ namespace AccountActor
         private readonly IAccountRepository _repository;
         private readonly IDateTimeService _dateTimeService;
         private readonly IAccountActorFactory _accountActorFactory;
-        private readonly IAccountWithdrawalActorFactory _accountWithdrawalActorFactory;
         private AccountMutator AccountMutator;
 
         /// <summary>
@@ -40,13 +38,12 @@ namespace AccountActor
         /// </summary>
         /// <param name="actorService">The Microsoft.ServiceFabric.Actors.Runtime.ActorService that will host this actor instance.</param>
         /// <param name="actorId">The Microsoft.ServiceFabric.Actors.ActorId for this actor instance.</param>
-        public AccountActor(ActorService actorService, ActorId actorId, IAccountRepository repository, IDateTimeService dateTimeService, IAccountWithdrawalActorFactory accountWithdrawalActorFactory)
+        public AccountActor(ActorService actorService, ActorId actorId, IAccountRepository repository, IDateTimeService dateTimeService)
             : base(actorService, actorId)
         {
             _id = new AccountGuid(actorId.GetGuidId());
             _repository = repository;
             _dateTimeService = dateTimeService;
-            _accountWithdrawalActorFactory = accountWithdrawalActorFactory;
         }
 
         public async Task Deposit(Money money)
@@ -72,9 +69,6 @@ namespace AccountActor
                 return true;
             }
 
-            var withdrawalsActor = _accountWithdrawalActorFactory.Create(_id);
-            await withdrawalsActor.Withdraw(_id, money);
-
             return false;
         }
 
@@ -91,7 +85,7 @@ namespace AccountActor
             AccountData = await _repository.Get(_id);
             AccountMutator = new AccountMutator(AccountData);
 
-            var transactions = await _repository.GetNewTransactions(_id, null);
+            var transactions = await _repository.GetTransactions(_id, null);
 
             foreach (var transaction in transactions)
             {
