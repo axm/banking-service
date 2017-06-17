@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Fabric;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors.Runtime;
 using CreditAccountActor.Repository;
 using System.Configuration;
-using Common.Services;
+using Base.Types;
 
 namespace CreditAccountActor
 {

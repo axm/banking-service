@@ -13,6 +13,7 @@ namespace AccountActor.Interfaces
 {
     public interface IAccountRepository
     {
+        Task CreateAccountStore();
         Task<AccountData> Get(AccountGuid id);
         Task<bool> Withdraw(AccountGuid id, Money amount);
         Task Deposit(AccountGuid id, Money amount);
@@ -138,6 +139,11 @@ namespace AccountActor.Interfaces
             var cursor = await transactions.FindAsync(t => t.InputAccountId == id || t.OutputAccountId == id);
 
             return await cursor.ToListAsync();
+        }
+
+        public async Task CreateAccountStore()
+        {
+            await _mongoClient.GetDatabase("local").CreateCollectionAsync("accounts");
         }
     }
 }

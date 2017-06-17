@@ -1,11 +1,7 @@
-﻿using Common.Services;
+﻿using Base.Types;
 using Credits.Interfaces;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CreditAccountActor.Tests.CreditAccountActor
 {

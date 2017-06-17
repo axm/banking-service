@@ -10,7 +10,7 @@ using CreditAccountActor.Interfaces;
 using CreditAccountActor.Interfaces.Params;
 using Credits.Interfaces;
 using Credits.Domain;
-using Common.Services;
+using Base.Types;
 
 namespace CreditAccountActor
 {
@@ -67,7 +67,7 @@ namespace CreditAccountActor
 
             var transaction = new Transaction
             {
-                TransactionId = new TransactionGuid(),
+                TransactionId = new Credits.Domain.TransactionGuid(),
                 CreditAccountId = transactionParams.Id,
                 Timestamp = DateTimeOffset.Now,
                 Amount = transactionParams.Amount

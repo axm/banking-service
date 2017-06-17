@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Fabric;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors.Runtime;
 using AccountActor.Interfaces;
 using System.Configuration;
-using Common.Services;
+using Base.Types;
+using Accounts.Domain;
+using MongoDB.Bson.Serialization;
+using Banking.Domain;
 
 namespace AccountActor
 {
@@ -26,6 +26,21 @@ namespace AccountActor
 
                 var repository = new AccountRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString, ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString);
                 var dateTimeService = new DateTimeService();
+
+                BsonClassMap.RegisterClassMap<TypedGuid>(cm =>
+                {
+                    cm.MapMember(t => t.Id);
+                });
+                BsonClassMap.RegisterClassMap<AccountGuid>(cm =>
+                {
+                    cm.AutoMap();
+                });
+                BsonClassMap.RegisterClassMap<Money>(cm =>
+                {
+                    cm.MapMember(m => m.Amount);
+                });
+
+                repository.CreateAccountStore();
 
                 ActorRuntime.RegisterActorAsync<AccountActor>(
                    (context, actorType) => new ActorService(context, actorType, (svc, id) => new AccountActor(svc, id, repository, dateTimeService))).GetAwaiter().GetResult();

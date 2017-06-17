@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Runtime;
-using Microsoft.ServiceFabric.Actors.Client;
 using AccountActor.Interfaces;
 using Banking.Domain;
 using Accounts.Domain;
-using Common.Services;
 using Base.Types;
 
 namespace AccountActor
@@ -56,7 +52,7 @@ namespace AccountActor
         private async Task Load()
         {
             AccountData = await _repository.Get(_id);
-            AccountData = new AccountData(AccountData.Id, AccountData.SortCode, AccountData.Overdraft, 0, new List<NewTransaction>());
+            AccountData = new AccountData(AccountData.Id, AccountData.SortCode, AccountData.Overdraft, 0);
             AccountMutator = new AccountMutator(AccountData);
 
             var transactions = await _repository.GetTransactions(_id, null);

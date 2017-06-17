@@ -25,6 +25,12 @@ namespace Accounts.Domain
             Transactions = transactions;
         }
 
+        public AccountData(AccountGuid id, SortCode sortCode, Money overdraft, Money balance) 
+            : this(id, sortCode, overdraft, balance, new List<NewTransaction>()) { }
+
+        public AccountData(AccountGuid id, SortCode sortCode)
+            : this(id, sortCode, 0, 0) { }
+
         public void AddTransaction(NewTransaction transaction)
         {
             if(transaction.InputAccountId == Id)

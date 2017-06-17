@@ -4,6 +4,8 @@ using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors.Runtime;
+using System.Configuration;
+using CustomerActor.Interfaces;
 
 namespace CustomerActor
 {
@@ -20,6 +22,12 @@ namespace CustomerActor
                 // The contents of your ServiceManifest.xml and ApplicationManifest.xml files
                 // are automatically populated when you build this project.
                 // For more information, see https://aka.ms/servicefabricactorsplatform
+
+                var mongoConnectionString = ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString;
+                var sqlConnectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
+                var customersRepository = new CustomerRepository(sqlConnectionString, mongoConnectionString);
+
+                customersRepository.CreateCustomerStore();
 
                 ActorRuntime.RegisterActorAsync<CustomerActor>(
                    (context, actorType) => new ActorService(context, actorType)).GetAwaiter().GetResult();

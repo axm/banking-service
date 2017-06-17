@@ -66,9 +66,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common.Services\Common.Services.csproj">
-      <Project>{768657AF-30B0-4822-AEC8-4AC7B122D18D}</Project>
-      <Name>Common.Services</Name>
+    <ProjectReference Include="..\Base.Types\Base.Types.csproj">
+      <Project>{3F1B0B69-5598-4246-9557-7B359000F185}</Project>
+      <Name>Base.Types</Name>
     </ProjectReference>
     <ProjectReference Include="..\Credits.Interfaces\Credits.Interfaces.csproj">
       <Project>{104f5af0-3278-4b43-9b2e-b5d008d3212f}</Project>
