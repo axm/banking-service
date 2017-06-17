@@ -19,16 +19,7 @@ namespace AccountActor
 
         public AccountData ApplyTransaction(NewTransaction transaction)
         {
-            if(transaction.InputAccountId == _accountData.Id)
-            {
-                // _accountData.Balance -= transaction.Amount;
-            }
-            else
-            {
-                // _accountData.Balance += transaction.Amount;
-            }
-
-            _accountData.Transactions.Add(transaction);
+            _accountData.AddTransaction(transaction);
 
             return _accountData;
         }

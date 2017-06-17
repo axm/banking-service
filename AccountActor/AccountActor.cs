@@ -27,7 +27,6 @@ namespace AccountActor
     {
         private readonly AccountGuid _id;
         private AccountData AccountData { get; set; }
-        private ICollection<NewTransaction> Transactions { get; set; }
         private readonly IAccountRepository _repository;
         private readonly IDateTimeService _dateTimeService;
         private readonly IAccountActorFactory _accountActorFactory;
@@ -46,32 +45,6 @@ namespace AccountActor
             _dateTimeService = dateTimeService;
         }
 
-        public async Task Deposit(Money money)
-        {
-            await LoadIfNecessary();
-
-            await _repository.Deposit(_id, money);
-            AccountData = AccountData.Deposit(money);
-        }
-
-        public async Task<bool> Withdraw(Money money)
-        {
-            await LoadIfNecessary();
-
-            if(money > AccountData.Balance)
-            {
-                return false;
-            }
-
-            if(await _repository.Withdraw(_id, money))
-            { 
-                AccountData = AccountData.Withdraw(money);
-                return true;
-            }
-
-            return false;
-        }
-
         private async Task LoadIfNecessary()
         {
             if(AccountData == null)
@@ -83,30 +56,15 @@ namespace AccountActor
         private async Task Load()
         {
             AccountData = await _repository.Get(_id);
+            AccountData = new AccountData(AccountData.Id, AccountData.SortCode, AccountData.Overdraft, 0, new List<NewTransaction>());
             AccountMutator = new AccountMutator(AccountData);
 
             var transactions = await _repository.GetTransactions(_id, null);
 
             foreach (var transaction in transactions)
             {
-                Transactions.Add(transaction);
-
                 AccountMutator.ApplyTransaction(transaction);
             }
-        }
-
-        public async Task Transfer(AccountGuid to, Money amount)
-        {
-            await LoadIfNecessary();
-
-            if(AccountData.Balance < amount)
-            {
-                throw new InvalidOperationException();
-            }
-
-            await _repository.Transfer(AccountData.Id, to, amount);
-
-            AccountData = AccountData.Withdraw(new Money(amount));
         }
 
         public async Task SetOverdraft(Money amount)
@@ -155,7 +113,7 @@ namespace AccountActor
             throw new NotImplementedException();
         }
 
-        public async Task ApplyTransaction(AccountGuid inputAccountId, AccountGuid outputAccountId, DateTimeOffset timestamp, Money amount)
+        public async Task MakeTransaction(AccountGuid inputAccountId, AccountGuid outputAccountId, DateTimeOffset timestamp, Money amount)
         {
             await LoadIfNecessary();
             var transaction = new NewTransaction(new TransactionGuid(), inputAccountId, outputAccountId, timestamp, AccountData.Balance, amount);

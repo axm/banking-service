@@ -1,4 +1,5 @@
-﻿using Accounts.Domain;
+﻿using AccountActor.Interfaces;
+using Accounts.Domain;
 using CreditAccountActor.Interfaces;
 using SimpleInjector;
 using System;
@@ -20,6 +21,7 @@ namespace BankingIntegrationTests.Controllers
         public IntegrationTestData()
         {
             Container.Register<ICreditAccountActorFactory, CreditAccountActorFactory>();
+            Container.Register<IAccountActorFactory, AccountActorFactory>();
             Container.Register<CreditsController>();
             Container.Register<AccountsController>();
         }

@@ -10,12 +10,11 @@ namespace Accounts.Domain
 {
     public class AccountData
     {
-        public readonly AccountGuid Id;
-        public readonly SortCode SortCode;
-        public readonly Money Overdraft;
-        public readonly Money Balance;
-        public readonly AccountInterestAlgorithmSpecifier AccountInterestAlgorithmSpecifier;
-        public readonly ICollection<NewTransaction> Transactions;
+        public AccountGuid Id { get; private set; }
+        public SortCode SortCode { get; private set; }
+        public Money Overdraft { get; private set; }
+        public Money Balance { get; private set; }
+        private ICollection<NewTransaction> Transactions { get; set; }
 
         public AccountData(AccountGuid id, SortCode sortCode, Money overdraft, Money balance, ICollection<NewTransaction> transactions)
         {
@@ -26,19 +25,18 @@ namespace Accounts.Domain
             Transactions = transactions;
         }
 
-        public AccountData Deposit(Money money)
+        public void AddTransaction(NewTransaction transaction)
         {
-            return new AccountData(Id, SortCode, Overdraft, new Money(Balance.Amount + money.Amount), Transactions);
-        }
-
-        public AccountData Withdraw(Money money)
-        {
-            if(money > Balance + Overdraft)
+            if(transaction.InputAccountId == Id)
             {
-                throw new NotEnoughFundsException();
+                Balance = new Money(Balance.Amount - transaction.Amount);
+            }
+            else
+            {
+                Balance = new Money(Balance.Amount + transaction.Amount);
             }
 
-            return new AccountData(Id, SortCode, Overdraft, new Money(Balance.Amount - money.Amount), Transactions);
+            Transactions.Add(transaction);
         }
     }
 }

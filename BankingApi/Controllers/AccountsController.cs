@@ -26,7 +26,7 @@ namespace BankingApi.Controllers
         {
             var actor = _accountActorFactory.Create(new AccountGuid(withdrawParams.AccountId));
 
-            await actor.Withdraw(new Money(withdrawParams.Amount));
+            await actor.MakeTransaction(new AccountGuid(withdrawParams.AccountId), null, DateTimeOffset.Now, new Money(withdrawParams.Amount));
         }
 
         [HttpPost("Deposit")]
@@ -34,17 +34,16 @@ namespace BankingApi.Controllers
         {
             var actor = _accountActorFactory.Create(new AccountGuid(depositParams.AccountId));
 
-            await actor.Deposit(new Money(depositParams.Money));
+            await actor.MakeTransaction(null, new AccountGuid(depositParams.AccountId), DateTimeOffset.Now, new Money(depositParams.Money));
         }
 
         [HttpPost("Transfer")]
         public async Task Transfer([FromBody]TransferParams transferParams)
         {
             var actor = _accountActorFactory.Create(new AccountGuid(transferParams.From));
-            await actor.Transfer(new AccountGuid(transferParams.To), new Money(transferParams.Amount));
+
+            await actor.MakeTransaction(new AccountGuid(transferParams.From), new AccountGuid(transferParams.To), DateTimeOffset.Now, new Money(transferParams.Amount));
         }
-
-
 
         [HttpPost("Transactions")]
         public async Task Transactions([FromBody]TransactionsParams transactionsParams)
@@ -52,7 +51,7 @@ namespace BankingApi.Controllers
             var account = transactionsParams.InputAccountId != null ? new AccountGuid(transactionsParams.InputAccountId) : new AccountGuid(transactionsParams.OutputAccountId);
 
             var actor = _accountActorFactory.Create(account);
-            await actor.ApplyTransaction(transactionsParams.InputAccountId != null ? new AccountGuid(transactionsParams.InputAccountId) : (AccountGuid)null,
+            await actor.MakeTransaction(transactionsParams.InputAccountId != null ? new AccountGuid(transactionsParams.InputAccountId) : (AccountGuid)null,
                 transactionsParams.OutputAccountId != null ? new AccountGuid(transactionsParams.OutputAccountId) : (AccountGuid)null,
                 DateTimeOffset.Now,
                 transactionsParams.Amount);
