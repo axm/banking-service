@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Dapper;
+using AccountActor.Interfaces;
+using Base.Types;
 
 namespace DirectDebitService
 {
@@ -16,11 +18,15 @@ namespace DirectDebitService
     internal sealed class DirectDebitService : StatelessService
     {
         private readonly IDirectDebitRepository _repository;
+        private readonly IAccountActorFactory _accountFactory;
+        private readonly IDateTimeService _dateTimeService;
 
-        public DirectDebitService(StatelessServiceContext context, IDirectDebitRepository repository)
+        public DirectDebitService(StatelessServiceContext context, IDirectDebitRepository repository, IAccountActorFactory accountFactory, IDateTimeService dateTimeService)
             : base(context)
         {
             _repository = repository;
+            _accountFactory = accountFactory;
+            _dateTimeService = dateTimeService;
         }
 
         /// <summary>
@@ -44,7 +50,13 @@ namespace DirectDebitService
 
                 await Task.Delay(TimeSpan.FromSeconds(5000), cancellationToken);
 
-                var directDebits = await _repository.GetDirectDebits();
+                var directDebits = await _repository.GetDirectDebitsForToday();
+
+                foreach (var debit in directDebits)
+                {
+                    var actor = _accountFactory.Create(debit.FromAccountId);
+                    await actor.MakeTransaction(debit.FromAccountId, debit.ToAccountId, _dateTimeService.GetDateTimeOffset(), debit.Amount);
+                }
             }
         }
     }

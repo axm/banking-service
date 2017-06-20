@@ -60,7 +60,7 @@ namespace BankingApi.Controllers
         [HttpPost("DirectDebit")]
         public async Task DirectDebit([FromBody]DirectDebitParams directDebitParams)
         {
-            var accountId = new AccountGuid(directDebitParams.AccountId);
+            var accountId = new AccountGuid(directDebitParams.FromAccountId);
             var toAccountId = new AccountGuid(directDebitParams.ToAccountId);
 
             var actor = _accountActorFactory.Create(accountId);

@@ -83,22 +83,16 @@ namespace AccountActor.Interfaces
 
         public async Task PostDirectDebit(DirectDebit directDebit)
         {
-            using(var sqlConnection = new SqlConnection(_connectionString))
-            {
-                await sqlConnection.ExecuteAsync("Account.spSetDirectDebit", new {
-                    Id = directDebit.Id.Id,
-                    Amount = directDebit.Amount.Amount,
-                    FromAccountId = directDebit.FromAccountId.Id,
-                    ToAccountId = directDebit.ToAccountId.Id,
-                    StartDate = directDebit.StartDate.UtcDateTime,
-                    Frequency = (int)directDebit.Frequency }, 
-                    commandType: System.Data.CommandType.StoredProcedure);
-            }
+            var directDebits = _mongoClient.GetDatabase("local").GetCollection<DirectDebit>("directDebits");
+
+            await directDebits.InsertOneAsync(directDebit);
         }
 
         public async Task DeleteDirectDebit(DirectDebitGuid directDebitId)
         {
-            throw new NotImplementedException();
+            var directDebits = _mongoClient.GetDatabase("local").GetCollection<DirectDebit>("directDebits");
+
+            await directDebits.DeleteOneAsync(d => d.Id == directDebitId);
         }
 
         public async Task SetOverdraft(AccountGuid id, Money amount)

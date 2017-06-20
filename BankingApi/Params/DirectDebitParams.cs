@@ -9,7 +9,7 @@ namespace BankingApi.Params
 {
     public class DirectDebitParams
     {
-        public Guid AccountId { get; set; }
+        public Guid FromAccountId { get; set; }
         public decimal Amount { get; set; }
         public Guid ToAccountId { get; set; }
         public DateTimeOffset StartTime { get; set; }
