@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Customer.Domain
+namespace Accounts.Domain
 {
-    public enum Gender
+    public enum TransactionType
     {
-        Male,
-        Female
+        Deposit,
+        Withdrawal,
+        Transfer,
+        Interest
     }
 }

@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using AccountActor.Interfaces;
+using CreditAccountActor.Interfaces;
+using CustomerActor.Interfaces;
 
 namespace BankingIntegrationTests
 {
@@ -29,6 +32,10 @@ namespace BankingIntegrationTests
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddSingleton<IAccountActorFactory, AccountActorFactory>();
+            services.AddSingleton<ICreditAccountActorFactory, CreditAccountActorFactory>();
+            services.AddSingleton<ICustomerRepository, CustomerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

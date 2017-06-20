@@ -34,6 +34,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AccountActor.Interfaces\AccountActor.Interfaces.csproj" />
     <ProjectReference Include="..\CreditAccountActor.Interfaces\CreditAccountActor.Interfaces.csproj" />
+    <ProjectReference Include="..\CustomerActor.Interfaces\CustomerActor.Interfaces.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Common">

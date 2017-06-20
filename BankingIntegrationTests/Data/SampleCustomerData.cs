@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Customer.Domain
+namespace BankingIntegrationTests.Data
 {
-    public enum Gender
+    public class SampleCustomerData
     {
-        Male,
-        Female
     }
 }

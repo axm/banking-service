@@ -54,6 +54,7 @@ namespace BankingIntegrationTests.Controllers
         }
 
         [IntegrationTest]
+        [HttpGet("MakeDeposits")]
         public async Task MakeDeposits()
         {
             await MakeDeposits(SampleAccountData.Account1);
@@ -82,6 +83,7 @@ namespace BankingIntegrationTests.Controllers
         }
 
         [IntegrationTest]
+        [HttpGet("MakeWithdrawals")]
         public async Task MakeWithdrawals()
         {
             await MakeWithdrawals(SampleAccountData.Account1);
@@ -103,13 +105,13 @@ namespace BankingIntegrationTests.Controllers
                 }
                 catch (Exception e)
                 {
-
                     throw;
                 }
             }
         }
 
         [IntegrationTest]
+        [HttpGet("MakeTransfers")]
         public async Task MakeTransfers()
         {
             await MakeTransfers(SampleAccountData.Account1, SampleAccountData.Account2);

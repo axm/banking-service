@@ -43,11 +43,13 @@
   <ItemGroup>
     <Compile Include="AccountInterestAlgorithmGuid.cs" />
     <Compile Include="AccountInterestAlgorithmSpecifier.cs" />
+    <Compile Include="CorrelationGuid.cs" />
     <Compile Include="CreditInterestAlgorithmGuid.cs" />
     <Compile Include="CreditInterestAlgorithmSpecifier.cs" />
     <Compile Include="CustomerGuid.cs" />
     <Compile Include="DateTimeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestContext.cs" />
     <Compile Include="TransactionGuid.cs" />
     <Compile Include="TypedId.cs" />
   </ItemGroup>

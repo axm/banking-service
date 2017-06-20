@@ -30,7 +30,7 @@ namespace CustomerActor
                 customersRepository.CreateCustomerStore();
 
                 ActorRuntime.RegisterActorAsync<CustomerActor>(
-                   (context, actorType) => new ActorService(context, actorType)).GetAwaiter().GetResult();
+                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new CustomerActor(svc, id, customersRepository))).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }

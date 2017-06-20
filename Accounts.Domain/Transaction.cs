@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Accounts.Domain
 {
     [DataContract]
-    public class NewTransaction
+    public class Transaction
     {
         [DataMember]
         public TransactionGuid Id { get; private set; }
@@ -25,7 +25,7 @@ namespace Accounts.Domain
         [DataMember]
         public decimal Amount { get; private set; }
 
-        public NewTransaction(TransactionGuid id, AccountGuid inputAccountId, AccountGuid outputAccountId, DateTimeOffset timestamp, Money balance, Money amount)
+        public Transaction(TransactionGuid id, AccountGuid inputAccountId, AccountGuid outputAccountId, DateTimeOffset timestamp, Money balance, Money amount)
         {
             Id = id;
             InputAccountId = inputAccountId;

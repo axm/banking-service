@@ -103,6 +103,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Base.Types\Base.Types.csproj">
+      <Project>{3f1b0b69-5598-4246-9557-7b359000f185}</Project>
+      <Name>Base.Types</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Customer.Domain\Customer.Domain.csproj">
       <Project>{DCADDF66-326E-424E-AE55-DC56C93FFE72}</Project>
       <Name>Customer.Domain</Name>

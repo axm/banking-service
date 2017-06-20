@@ -7,12 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using AccountActor.Interfaces;
-using CreditAccountActor.Interfaces;
-using BankingApi.Validation;
-using CustomerActor.Interfaces;
 
-namespace BankingApi
+namespace AdminApi
 {
     public class Startup
     {
@@ -33,12 +29,6 @@ namespace BankingApi
         {
             // Add framework services.
             services.AddMvc();
-
-            services.AddSingleton<IAccountActorFactory, AccountActorFactory>();
-            services.AddSingleton<ICreditAccountActorFactory, CreditAccountActorFactory>();
-            services.AddSingleton<ITransactionValidator, TransactionValidator>();
-            services.AddSingleton<IPaymentValidator, PaymentValidator>();
-            services.AddSingleton<ICustomerRepository, CustomerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,11 +38,6 @@ namespace BankingApi
             loggerFactory.AddDebug();
 
             app.UseMvc();
-
-            app.Use(async (context, next) =>
-            {
-                await next.Invoke();
-            });
         }
     }
 }

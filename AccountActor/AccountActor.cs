@@ -112,7 +112,7 @@ namespace AccountActor
         public async Task MakeTransaction(AccountGuid inputAccountId, AccountGuid outputAccountId, DateTimeOffset timestamp, Money amount)
         {
             await LoadIfNecessary();
-            var transaction = new NewTransaction(new TransactionGuid(), inputAccountId, outputAccountId, timestamp, AccountData.Balance, amount);
+            var transaction = new Transaction(new TransactionGuid(), inputAccountId, outputAccountId, timestamp, AccountData.Balance, amount);
 
             await _repository.StoreTransaction(transaction);
 

@@ -17,7 +17,7 @@ namespace AccountActor
             _accountData = accountData;
         }
 
-        public AccountData ApplyTransaction(NewTransaction transaction)
+        public AccountData ApplyTransaction(Transaction transaction)
         {
             _accountData.AddTransaction(transaction);
 

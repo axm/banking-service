@@ -19,11 +19,11 @@ namespace AccountActor.Interfaces
         Task Deposit(AccountGuid id, Money amount);
         Task Transfer(AccountGuid id, AccountGuid to, Money amount);
         Task SetOverdraft(AccountGuid id, Money amount);
-        Task<IEnumerable<NewTransaction>> GetTransactions(AccountGuid id, DateTimeOffset? fromDate = null);
+        Task<IEnumerable<Transaction>> GetTransactions(AccountGuid id, DateTimeOffset? fromDate = null);
         Task PutBalance(AccountGuid accountGuid, Money balance);
         Task PostDirectDebit(DirectDebit directDebit);
         Task DeleteDirectDebit(DirectDebitGuid directDebitId);
-        Task StoreTransaction(NewTransaction transaction);
+        Task StoreTransaction(Transaction transaction);
     }
 
     public class AccountRepository : IAccountRepository
@@ -69,7 +69,7 @@ namespace AccountActor.Interfaces
                     var overdraft = new Money(reader.GetDecimal(2));
                     var amount = new Money(reader.GetDecimal(3));
 
-                    return new AccountData(accountId, sortCode, overdraft, amount, new List<NewTransaction>());
+                    return new AccountData(accountId, sortCode, overdraft, amount, new List<Transaction>());
                 }
 
                 return null;
@@ -125,16 +125,16 @@ namespace AccountActor.Interfaces
             }
         }
 
-        public async Task StoreTransaction(NewTransaction transaction)
+        public async Task StoreTransaction(Transaction transaction)
         {
-            var transactions = _mongoClient.GetDatabase("local").GetCollection<NewTransaction>("transactions");
+            var transactions = _mongoClient.GetDatabase("local").GetCollection<Transaction>("transactions");
 
             await transactions.InsertOneAsync(transaction);
         }
 
-        public async Task<IEnumerable<NewTransaction>> GetTransactions(AccountGuid id, DateTimeOffset? fromDate = null)
+        public async Task<IEnumerable<Transaction>> GetTransactions(AccountGuid id, DateTimeOffset? fromDate = null)
         {
-            var transactions = _mongoClient.GetDatabase("local").GetCollection<NewTransaction>("transactions");
+            var transactions = _mongoClient.GetDatabase("local").GetCollection<Transaction>("transactions");
 
             var cursor = await transactions.FindAsync(t => t.InputAccountId == id || t.OutputAccountId == id);
 

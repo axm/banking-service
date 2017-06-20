@@ -14,9 +14,9 @@ namespace Accounts.Domain
         public SortCode SortCode { get; private set; }
         public Money Overdraft { get; private set; }
         public Money Balance { get; private set; }
-        private ICollection<NewTransaction> Transactions { get; set; }
+        private ICollection<Transaction> Transactions { get; set; }
 
-        public AccountData(AccountGuid id, SortCode sortCode, Money overdraft, Money balance, ICollection<NewTransaction> transactions)
+        public AccountData(AccountGuid id, SortCode sortCode, Money overdraft, Money balance, ICollection<Transaction> transactions)
         {
             Id = id;
             SortCode =  sortCode;
@@ -26,12 +26,12 @@ namespace Accounts.Domain
         }
 
         public AccountData(AccountGuid id, SortCode sortCode, Money overdraft, Money balance) 
-            : this(id, sortCode, overdraft, balance, new List<NewTransaction>()) { }
+            : this(id, sortCode, overdraft, balance, new List<Transaction>()) { }
 
         public AccountData(AccountGuid id, SortCode sortCode)
             : this(id, sortCode, 0, 0) { }
 
-        public void AddTransaction(NewTransaction transaction)
+        public void AddTransaction(Transaction transaction)
         {
             if(transaction.InputAccountId == Id)
             {
