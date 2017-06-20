@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DayMonth.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="MonthYear.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
