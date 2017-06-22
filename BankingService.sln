@@ -67,6 +67,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminApi", "AdminApi\AdminA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base.Serialization", "Base.Serialization\Base.Serialization.csproj", "{5D1062A4-0E52-4CFA-8A79-CD03FDFF50B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base.Providers", "Base.Providers\Base.Providers.csproj", "{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -269,6 +271,14 @@ Global
 		{5D1062A4-0E52-4CFA-8A79-CD03FDFF50B7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5D1062A4-0E52-4CFA-8A79-CD03FDFF50B7}.Release|x64.ActiveCfg = Release|Any CPU
 		{5D1062A4-0E52-4CFA-8A79-CD03FDFF50B7}.Release|x64.Build.0 = Release|Any CPU
+		{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}.Debug|x64.Build.0 = Debug|Any CPU
+		{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}.Release|x64.ActiveCfg = Release|Any CPU
+		{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -297,5 +307,6 @@ Global
 		{1540070D-648C-433F-9D49-869BA7738484} = {C94A4690-88E0-409D-9EA3-5449BC3B0CA1}
 		{F3E0A039-02B2-470F-8402-786B7B621FF8} = {12BF4BE1-6251-41BB-8BA1-5548FCEF2D5C}
 		{5D1062A4-0E52-4CFA-8A79-CD03FDFF50B7} = {857E7A6E-7732-4662-913F-CA63048CEB4C}
+		{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B} = {857E7A6E-7732-4662-913F-CA63048CEB4C}
 	EndGlobalSection
 EndGlobal
