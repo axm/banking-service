@@ -8,6 +8,10 @@ using System.Configuration;
 using MongoDB.Driver;
 using Base.Types;
 using AccountActor.Interfaces;
+using MongoDB.Bson.Serialization;
+using Banking.Domain;
+using Base.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace DirectDebitService
 {
@@ -35,6 +39,9 @@ namespace DirectDebitService
                     context => new DirectDebitService(context, directDebitRepository, new AccountActorFactory(), dateTimeService)).GetAwaiter().GetResult();
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(DirectDebitService).Name);
+
+                BsonSerializer.RegisterSerializer(typeof(DateTimeOffset), new DateTimeOffsetSerializer());
+                BsonSerializer.RegisterSerializer(typeof(Money), new MoneySerializer());
 
                 // Prevents this host process from terminating so services keep running.
                 Thread.Sleep(Timeout.Infinite);

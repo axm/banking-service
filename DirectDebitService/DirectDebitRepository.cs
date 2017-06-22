@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using Banking.Domain;
 using Base.Types;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace DirectDebitService
 {
     public interface IDirectDebitRepository
     {
         Task<IEnumerable<DirectDebit>> GetDirectDebitsForToday();
+        Task MarkDirectDebit(DirectDebitGuid id, DateTimeOffset timestamp);
     }
 
     public class DirectDebitRepository : IDirectDebitRepository
@@ -22,6 +24,10 @@ namespace DirectDebitService
         private readonly string _connectionString;
         private readonly IDateTimeService _dateTimeService;
         private readonly MongoClient _mongoClient;
+
+        private IMongoCollection<DirectDebit> DebitCollection => _mongoClient.GetDatabase("local").GetCollection<DirectDebit>("directDebits");
+        private IMongoCollection<BsonDocument> DebitCollection2 => _mongoClient.GetDatabase("local").GetCollection<BsonDocument>("directDebits");
+
 
         public DirectDebitRepository(string connectionString, IDateTimeService dateTimeService, MongoClient mongoClient)
         {
@@ -34,11 +40,16 @@ namespace DirectDebitService
         {
             var today = _dateTimeService.GetDateTimeOffset().Date;
 
-            var debitCollection = _mongoClient.GetDatabase("local").GetCollection<DirectDebit>("directDebit");
+            var directDebits = (await DebitCollection.FindAsync(d => true)).ToList();
 
-            var directDebits = await debitCollection.FindAsync(d => d.StartDate.Date == today);
+            var directDebits1 = (await DebitCollection.FindAsync(d => d.StartDate.Date == today)).ToList();
 
-            return directDebits.ToEnumerable();
+            return directDebits;
+        }
+
+        public async Task MarkDirectDebit(DirectDebitGuid id, DateTimeOffset timestamp)
+        {
+            var debit = await DebitCollection.FindOneAndUpdateAsync((DirectDebit dd) => dd.Id == id, Builders<DirectDebit>.Update.Set("LastRunTimestamp", timestamp));
         }
     }
 }
