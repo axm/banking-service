@@ -25,6 +25,7 @@ namespace AccountActor
                 // For more information, see https://aka.ms/servicefabricactorsplatform
 
                 var repository = new AccountRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString, ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString);
+                var elasticSearchConnection = ConfigurationManager.ConnectionStrings["ElasticSearchDefault"].ConnectionString;
                 var dateTimeService = new DateTimeService();
 
                 BsonSerializer.RegisterSerializer(typeof(DirectDebitGuid), new DirectDebitGuidSerializer());

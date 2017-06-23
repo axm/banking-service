@@ -22,6 +22,8 @@ namespace CreditAccountActor
                 // For more information, see https://aka.ms/servicefabricactorsplatform
 
                 var repository = new CreditRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
+                var mongoConnection = new CreditRepository(ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString);
+                var elasticSearchConnection = ConfigurationManager.ConnectionStrings["ElasticSearchDefault"].ConnectionString;
                 var dateTimeService = new DateTimeService();
 
                 ActorRuntime.RegisterActorAsync<CreditAccountActor>(
