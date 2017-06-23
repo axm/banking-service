@@ -35,7 +35,7 @@ namespace BankingApi.Controllers
                 throw new Exception("Invalid parameters.");
             }
 
-            var id = new Credits.Domain.CreditAccountGuid(makePaymentParams.CreditAccountId);
+            var id = new CreditAccountGuid(makePaymentParams.CreditAccountId);
             var actor = _creditAccountActorFactory.Create(id);
 
             await actor.MakePayment(new CreditAccountActor.Interfaces.Params.PaymentParams
@@ -55,7 +55,7 @@ namespace BankingApi.Controllers
                 throw new Exception("Invalid parameters.");
             }
 
-            var id = new Credits.Domain.CreditAccountGuid(makeTransactionParams.CreditAccountId);
+            var id = new CreditAccountGuid(makeTransactionParams.CreditAccountId);
             var actor = _creditAccountActorFactory.Create(id);
 
             await actor.MakeTransaction(new CreditAccountActor.Interfaces.Params.TransactionParams

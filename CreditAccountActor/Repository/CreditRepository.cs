@@ -7,6 +7,7 @@ using Dapper;
 using CreditAccountActor.Repository;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Base.Types;
 
 namespace CreditAccountActor.Repository
 {

@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Base.Types\Base.Types.csproj">
+      <Project>{3F1B0B69-5598-4246-9557-7B359000F185}</Project>
+      <Name>Base.Types</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Credits.Domain\Credits.Domain.csproj">
       <Project>{AAF192FF-E715-4390-BDBB-F13CCCD76D12}</Project>
       <Name>Credits.Domain</Name>

@@ -1,4 +1,5 @@
-﻿using Credits.Domain;
+﻿using Base.Types;
+using Credits.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

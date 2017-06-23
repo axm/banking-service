@@ -1,10 +1,6 @@
-﻿using Credits.Domain;
+﻿using Base.Types;
 using Microsoft.ServiceFabric.Actors.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CreditAccountActor.Interfaces
 {
@@ -12,7 +8,6 @@ namespace CreditAccountActor.Interfaces
     {
         ICreditAccountActor Create(CreditAccountGuid id);
     }
-
 
     public class CreditAccountActorFactory : ICreditAccountActorFactory
     {

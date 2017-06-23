@@ -11,6 +11,7 @@ using BankingIntegrationTests.Attributes;
 using System.Data.SqlClient;
 using Dapper;
 using System.Configuration;
+using Base.Types;
 
 namespace BankingIntegrationTests.Controllers
 {
