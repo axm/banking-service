@@ -7,6 +7,7 @@ using AccountActor.Interfaces;
 using Accounts.Domain;
 using BankingApi.Params;
 using Banking.Domain;
+using System.Diagnostics;
 
 namespace BankingApi.Controllers
 {
@@ -26,7 +27,7 @@ namespace BankingApi.Controllers
         {
             var actor = _accountActorFactory.Create(new AccountGuid(withdrawParams.AccountId));
 
-            await actor.MakeTransaction(new AccountGuid(withdrawParams.AccountId), null, DateTimeOffset.Now, new Money(withdrawParams.Amount));
+            await actor.MakeTransaction(null, DateTimeOffset.Now, new Money(withdrawParams.Amount));
         }
 
         [HttpPost("Deposit")]
@@ -34,7 +35,7 @@ namespace BankingApi.Controllers
         {
             var actor = _accountActorFactory.Create(new AccountGuid(depositParams.AccountId));
 
-            await actor.MakeTransaction(null, new AccountGuid(depositParams.AccountId), DateTimeOffset.Now, new Money(depositParams.Money));
+            await actor.MakeTransaction(new AccountGuid(depositParams.AccountId), DateTimeOffset.Now, new Money(depositParams.Money));
         }
 
         [HttpPost("Transfer")]
@@ -42,7 +43,7 @@ namespace BankingApi.Controllers
         {
             var actor = _accountActorFactory.Create(new AccountGuid(transferParams.From));
 
-            await actor.MakeTransaction(new AccountGuid(transferParams.From), new AccountGuid(transferParams.To), DateTimeOffset.Now, new Money(transferParams.Amount));
+            await actor.MakeTransaction(new AccountGuid(transferParams.To), DateTimeOffset.Now, new Money(transferParams.Amount));
         }
 
         [HttpPost("Transactions")]
@@ -51,8 +52,7 @@ namespace BankingApi.Controllers
             var account = transactionsParams.InputAccountId != null ? new AccountGuid(transactionsParams.InputAccountId) : new AccountGuid(transactionsParams.OutputAccountId);
 
             var actor = _accountActorFactory.Create(account);
-            await actor.MakeTransaction(transactionsParams.InputAccountId != null ? new AccountGuid(transactionsParams.InputAccountId) : (AccountGuid)null,
-                transactionsParams.OutputAccountId != null ? new AccountGuid(transactionsParams.OutputAccountId) : (AccountGuid)null,
+            await actor.MakeTransaction(transactionsParams.OutputAccountId != null ? new AccountGuid(transactionsParams.OutputAccountId) : (AccountGuid)null,
                 DateTimeOffset.Now,
                 transactionsParams.Amount);
         }
@@ -65,6 +65,16 @@ namespace BankingApi.Controllers
 
             var actor = _accountActorFactory.Create(accountId);
             await actor.PostDirectDebit(directDebitParams.Amount, toAccountId, directDebitParams.StartTime, directDebitParams.Frequency);
+        }
+
+        [HttpDelete("DirectDebit")]
+        public async Task DirectDebit([FromBody]DeleteDirectDebitParams deleteDirectDebitParams)
+        {
+            var directDebitId = new DirectDebitGuid(deleteDirectDebitParams.DirectDebitId);
+            var accountId = new AccountGuid(deleteDirectDebitParams.AccountId);
+
+            var actor = _accountActorFactory.Create(accountId);
+            await actor.DeleteDirectDebit(directDebitId);
         }
     }
 }

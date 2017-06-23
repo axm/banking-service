@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountGuidSerializer.cs" />
+    <Compile Include="BankingDateTimeOffsetSerializer.cs" />
+    <Compile Include="DirectDebitGuidSerializer.cs" />
     <Compile Include="MoneySerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,9 +62,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Accounts.Domain\Accounts.Domain.csproj">
+      <Project>{5F6487E7-B4D7-4020-8566-681ABBDF31CD}</Project>
+      <Name>Accounts.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Banking.Domain\Banking.Domain.csproj">
       <Project>{3F44F6A8-B565-46E8-A8DF-0DE5EF9A036B}</Project>
       <Name>Banking.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Base.Types\Base.Types.csproj">
+      <Project>{3F1B0B69-5598-4246-9557-7B359000F185}</Project>
+      <Name>Base.Types</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

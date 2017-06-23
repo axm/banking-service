@@ -12,6 +12,7 @@ using MongoDB.Bson.Serialization;
 using Banking.Domain;
 using Base.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using Accounts.Domain;
 
 namespace DirectDebitService
 {
@@ -22,6 +23,18 @@ namespace DirectDebitService
         /// </summary>
         private static void Main()
         {
+
+            //BsonSerializer.RegisterSerializer(typeof(DirectDebitGuid), new DirectDebitGuidSerializer());
+            //BsonSerializer.RegisterSerializer(typeof(AccountGuid), new AccountGuidSerializer());
+            //BsonSerializer.RegisterSerializer(typeof(DateTimeOffset), new BankingDateTimeOffsetSerializer());
+            //BsonSerializer.RegisterSerializer(typeof(Money), new MoneySerializer());
+            //var connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
+            //var mongoConnectionString = ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString;
+            //var mongoClient = new MongoClient();
+            //var dateTimeService = new DateTimeService();
+            //var directDebitRepository = new DirectDebitRepository(connectionString, dateTimeService, mongoClient);
+            //var directDebits = directDebitRepository.GetDirectDebitsForToday().Result;
+
             try
             {
                 // The ServiceManifest.XML file defines one or more service type names.
@@ -40,7 +53,10 @@ namespace DirectDebitService
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(DirectDebitService).Name);
 
-                BsonSerializer.RegisterSerializer(typeof(DateTimeOffset), new DateTimeOffsetSerializer());
+
+                BsonSerializer.RegisterSerializer(typeof(DirectDebitGuid), new DirectDebitGuidSerializer());
+                BsonSerializer.RegisterSerializer(typeof(AccountGuid), new AccountGuidSerializer());
+                BsonSerializer.RegisterSerializer(typeof(DateTimeOffset), new BankingDateTimeOffsetSerializer());
                 BsonSerializer.RegisterSerializer(typeof(Money), new MoneySerializer());
 
                 // Prevents this host process from terminating so services keep running.

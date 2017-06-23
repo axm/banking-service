@@ -5,6 +5,8 @@ This is an implementation of a banking system. It includes transaction processin
 * ASP.NET Core
 * Azure Service Fabric
 * Azure Service Bus
-* Elasticsearch
+* Elasticsearch, Kibana
 * MongoDB
-* Angular 2, Angular CLI
+* Angular 2
+* Angular CLI
+* SASS

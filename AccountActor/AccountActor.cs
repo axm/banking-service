@@ -7,6 +7,7 @@ using AccountActor.Interfaces;
 using Banking.Domain;
 using Accounts.Domain;
 using Base.Types;
+using Base.Providers;
 
 namespace AccountActor
 {
@@ -27,18 +28,14 @@ namespace AccountActor
         private readonly IDateTimeService _dateTimeService;
         private readonly IAccountActorFactory _accountActorFactory;
         private AccountMutator AccountMutator;
+        private readonly IServiceBusProvider _serviceBusProvider;
 
-        /// <summary>
-        /// Initializes a new instance of AccountActor
-        /// </summary>
-        /// <param name="actorService">The Microsoft.ServiceFabric.Actors.Runtime.ActorService that will host this actor instance.</param>
-        /// <param name="actorId">The Microsoft.ServiceFabric.Actors.ActorId for this actor instance.</param>
-        public AccountActor(ActorService actorService, ActorId actorId, IAccountRepository repository, IDateTimeService dateTimeService)
-            : base(actorService, actorId)
+        public AccountActor(ActorService actorService, ActorId actorId, IAccountRepository repository, IDateTimeService dateTimeService, IServiceBusProvider serviceBusProvider) : base(actorService, actorId)
         {
             _id = new AccountGuid(actorId.GetGuidId());
             _repository = repository;
             _dateTimeService = dateTimeService;
+            _serviceBusProvider = serviceBusProvider;
         }
 
         private async Task LoadIfNecessary()
@@ -109,10 +106,10 @@ namespace AccountActor
             throw new NotImplementedException();
         }
 
-        public async Task MakeTransaction(AccountGuid inputAccountId, AccountGuid outputAccountId, DateTimeOffset timestamp, Money amount)
+        public async Task MakeTransaction(AccountGuid toAccountId, DateTimeOffset timestamp, Money amount)
         {
             await LoadIfNecessary();
-            var transaction = new Transaction(new TransactionGuid(), inputAccountId, outputAccountId, timestamp, AccountData.Balance, amount);
+            var transaction = new Transaction(new TransactionGuid(), _id, toAccountId, timestamp, AccountData.Balance, amount);
 
             await _repository.StoreTransaction(transaction);
 

@@ -53,9 +53,8 @@ namespace DirectDebitService
                     var actor = _accountFactory.Create(debit.FromAccountId);
 
                     var timestamp = _dateTimeService.GetDateTimeOffset();
-                    await actor.MakeTransaction(debit.FromAccountId, debit.ToAccountId, timestamp, debit.Amount);
+                    await actor.MakeTransaction(debit.ToAccountId, timestamp, debit.Amount);
                     await _repository.MarkDirectDebit(debit.Id, timestamp);
-
                 }
 
                 cancellationToken.ThrowIfCancellationRequested();

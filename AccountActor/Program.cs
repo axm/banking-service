@@ -7,6 +7,9 @@ using Base.Types;
 using Accounts.Domain;
 using MongoDB.Bson.Serialization;
 using Banking.Domain;
+using Base.Providers;
+using MongoDB.Bson.Serialization.Serializers;
+using Base.Serialization;
 
 namespace AccountActor
 {
@@ -27,23 +30,17 @@ namespace AccountActor
                 var repository = new AccountRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString, ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString);
                 var dateTimeService = new DateTimeService();
 
-                BsonClassMap.RegisterClassMap<TypedGuid>(cm =>
-                {
-                    cm.MapMember(t => t.Id);
-                });
-                BsonClassMap.RegisterClassMap<AccountGuid>(cm =>
-                {
-                    cm.AutoMap();
-                });
-                BsonClassMap.RegisterClassMap<Money>(cm =>
-                {
-                    cm.MapMember(m => m.Amount);
-                });
+                BsonSerializer.RegisterSerializer(typeof(DirectDebitGuid), new DirectDebitGuidSerializer());
+                BsonSerializer.RegisterSerializer(typeof(AccountGuid), new AccountGuidSerializer());
+                BsonSerializer.RegisterSerializer(typeof(DateTimeOffset), new BankingDateTimeOffsetSerializer());
+                BsonSerializer.RegisterSerializer(typeof(Money), new MoneySerializer());
 
                 repository.CreateAccountStore();
 
+                var serviceBusProvider = new ServiceBusProvider();
+
                 ActorRuntime.RegisterActorAsync<AccountActor>(
-                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new AccountActor(svc, id, repository, dateTimeService))).GetAwaiter().GetResult();
+                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new AccountActor(svc, id, repository, dateTimeService, serviceBusProvider))).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }

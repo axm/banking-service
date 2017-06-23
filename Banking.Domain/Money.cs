@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace Banking.Domain
 {
     [DataContract]
+    [DebuggerDisplay("{Amount}")]
     public struct Money
     {
         public static Money Zero = new Money(0);

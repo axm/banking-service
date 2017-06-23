@@ -39,17 +39,24 @@ namespace DirectDebitService
         public async Task<IEnumerable<DirectDebit>> GetDirectDebitsForToday()
         {
             var today = _dateTimeService.GetDateTimeOffset().Date;
-
             var directDebits = (await DebitCollection.FindAsync(d => true)).ToList();
 
-            var directDebits1 = (await DebitCollection.FindAsync(d => d.StartDate.Date == today)).ToList();
+
+            try
+            {
+                directDebits = (await DebitCollection.FindAsync(d => d.Frequency == DirectDebitFrequency.Once && d.StartDate == today || d.Frequency == DirectDebitFrequency.Monthly && (d.LastRunTimestamp.HasValue && d.LastRunTimestamp.Value < today.AddMonths(-1) || !d.LastRunTimestamp.HasValue && d.StartDate < today.AddMonths(-1)))).ToList();
+                var directDebits1 = (await DebitCollection.FindAsync(d => d.StartDate == today)).ToList();
+            }
+            catch (Exception e)
+            {
+            }
 
             return directDebits;
         }
 
         public async Task MarkDirectDebit(DirectDebitGuid id, DateTimeOffset timestamp)
         {
-            var debit = await DebitCollection.FindOneAndUpdateAsync((DirectDebit dd) => dd.Id == id, Builders<DirectDebit>.Update.Set("LastRunTimestamp", timestamp));
+            await DebitCollection.FindOneAndUpdateAsync((DirectDebit dd) => dd.Id == id, Builders<DirectDebit>.Update.Set("LastRunTimestamp", timestamp));
         }
     }
 }

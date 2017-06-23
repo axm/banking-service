@@ -72,7 +72,7 @@ namespace BankingIntegrationTests.Controllers
 
                 try
                 {
-                    await actor.MakeTransaction(null, account.Id, DateTimeOffset.Now, amount);
+                    await actor.MakeTransaction(account.Id, DateTimeOffset.Now, amount);
                 }
                 catch (Exception e)
                 {
@@ -101,7 +101,7 @@ namespace BankingIntegrationTests.Controllers
                 try
                 {
 
-                    await actor.MakeTransaction(account.Id, null, DateTimeOffset.Now, amount);
+                    await actor.MakeTransaction(null, DateTimeOffset.Now, amount);
                 }
                 catch (Exception e)
                 {
@@ -132,7 +132,7 @@ namespace BankingIntegrationTests.Controllers
 
                 try
                 {
-                    await actor.MakeTransaction(inAccount.Id, outAccount.Id, DateTimeOffset.Now, amount);
+                    await actor.MakeTransaction(outAccount.Id, DateTimeOffset.Now, amount);
                 }
                 catch (Exception e)
                 {

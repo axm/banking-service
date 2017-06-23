@@ -15,7 +15,7 @@ namespace AccountActor.Interfaces
     /// </summary>
     public interface IAccountActor : IActor
     {
-        Task MakeTransaction(AccountGuid inputAccountId, AccountGuid outputAccountId, DateTimeOffset timestamp, Money amount);
+        Task MakeTransaction(AccountGuid outputAccountId, DateTimeOffset timestamp, Money amount);
         Task SetOverdraft(Money money);
         Task VerifyIntegrity();
         Task PostDirectDebit(Money amount, AccountGuid toAccountId, DateTimeOffset startTime, DirectDebitFrequency frequency);
