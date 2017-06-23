@@ -50,8 +50,6 @@
     <Compile Include="MonthYear.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SortCode.cs" />
-    <Compile Include="ValidatorGuid.cs" />
-    <Compile Include="ValidatorSpecifier.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Accounts.Domain
+namespace Base.Types
 {
     public class DirectDebitGuid : TypedGuid
     {

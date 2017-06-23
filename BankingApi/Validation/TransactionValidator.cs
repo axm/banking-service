@@ -1,10 +1,6 @@
-﻿using Banking.Domain;
-using BankingApi.Controllers;
-using CreditAccountActor.Interfaces.Params;
+﻿using BankingApi.Controllers;
+using Base.Types;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BankingApi.Validation
 {
