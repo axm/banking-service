@@ -116,10 +116,6 @@
       <Project>{5f6487e7-b4d7-4020-8566-681abbdf31cd}</Project>
       <Name>Accounts.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Banking.Domain\Banking.Domain.csproj">
-      <Project>{3f44f6a8-b565-46e8-a8df-0de5ef9a036b}</Project>
-      <Name>Banking.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Base.Providers\Base.Providers.csproj">
       <Project>{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}</Project>
       <Name>Base.Providers</Name>

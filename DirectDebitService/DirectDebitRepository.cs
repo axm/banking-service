@@ -1,12 +1,8 @@
-﻿using Dapper;
-using Accounts.Domain;
+﻿using Accounts.Domain;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Banking.Domain;
 using Base.Types;
 using MongoDB.Driver;
 using MongoDB.Bson;

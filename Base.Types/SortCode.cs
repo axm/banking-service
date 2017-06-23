@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Banking.Domain
+namespace Base.Types
 {
     public class SortCode
     {

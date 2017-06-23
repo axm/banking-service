@@ -1,13 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CreditAccountActor.Interfaces;
-using Accounts.Domain;
 using BankingApi.Validation;
-using Banking.Domain;
 using Base.Types;
 
 namespace BankingApi.Controllers

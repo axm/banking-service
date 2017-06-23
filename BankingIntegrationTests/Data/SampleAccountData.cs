@@ -1,11 +1,6 @@
 ﻿using Accounts.Domain;
-using Banking.Domain;
 using Base.Types;
-using Credits.Domain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BankingIntegrationTests.Data
 {

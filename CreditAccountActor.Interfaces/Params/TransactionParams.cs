@@ -1,6 +1,4 @@
-﻿using Banking.Domain;
-using Base.Types;
-using Credits.Domain;
+﻿using Base.Types;
 using System;
 using System.Runtime.Serialization;
 

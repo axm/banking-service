@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Banking.Domain
+namespace Base.Types
 {
     public struct MonthYear
     {

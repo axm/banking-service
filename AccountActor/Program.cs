@@ -4,11 +4,8 @@ using Microsoft.ServiceFabric.Actors.Runtime;
 using AccountActor.Interfaces;
 using System.Configuration;
 using Base.Types;
-using Accounts.Domain;
 using MongoDB.Bson.Serialization;
-using Banking.Domain;
 using Base.Providers;
-using MongoDB.Bson.Serialization.Serializers;
 using Base.Serialization;
 
 namespace AccountActor

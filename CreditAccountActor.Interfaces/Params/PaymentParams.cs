@@ -1,13 +1,6 @@
-﻿using Accounts.Domain;
-using Banking.Domain;
-using Base.Types;
-using Credits.Domain;
+﻿using Base.Types;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CreditAccountActor.Interfaces.Params
 {

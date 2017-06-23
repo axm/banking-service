@@ -1,4 +1,4 @@
-﻿using Banking.Domain;
+﻿using Base.Types;
 using NUnit.Framework;
 using System;
 

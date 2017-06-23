@@ -1,12 +1,7 @@
-﻿using Banking.Domain;
+﻿using Base.Types;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Base.Serialization
 {

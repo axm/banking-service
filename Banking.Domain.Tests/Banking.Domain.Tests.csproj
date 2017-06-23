@@ -128,13 +128,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Banking.Domain\Banking.Domain.csproj">
-      <Project>{3f44f6a8-b565-46e8-a8df-0de5ef9a036b}</Project>
-      <Name>Banking.Domain</Name>
-    </ProjectReference>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <ProjectReference Include="..\Base.Types\Base.Types.csproj">
+      <Project>{3F1B0B69-5598-4246-9557-7B359000F185}</Project>
+      <Name>Base.Types</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

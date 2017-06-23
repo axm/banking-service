@@ -1,5 +1,4 @@
 ﻿using Accounts.Domain;
-using Banking.Domain;
 using System;
 using System.Threading.Tasks;
 using Dapper;

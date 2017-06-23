@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Runtime;
 using AccountActor.Interfaces;
-using Banking.Domain;
 using Accounts.Domain;
 using Base.Types;
 using Base.Providers;
