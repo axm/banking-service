@@ -9,6 +9,7 @@ using Microsoft.ServiceFabric.Services.Runtime;
 using Dapper;
 using AccountActor.Interfaces;
 using Base.Types;
+using Base.Providers;
 
 namespace DirectDebitService
 {
@@ -20,13 +21,15 @@ namespace DirectDebitService
         private readonly IDirectDebitRepository _repository;
         private readonly IAccountActorFactory _accountFactory;
         private readonly IDateTimeService _dateTimeService;
+        private readonly IElasticSearchProvider _elasticSearchProvider;
 
-        public DirectDebitService(StatelessServiceContext context, IDirectDebitRepository repository, IAccountActorFactory accountFactory, IDateTimeService dateTimeService)
+        public DirectDebitService(StatelessServiceContext context, IDirectDebitRepository repository, IAccountActorFactory accountFactory, IDateTimeService dateTimeService, IElasticSearchProvider elasticSearchProvider)
             : base(context)
         {
             _repository = repository;
             _accountFactory = accountFactory;
             _dateTimeService = dateTimeService;
+            _elasticSearchProvider = elasticSearchProvider;
         }
 
         /// <summary>

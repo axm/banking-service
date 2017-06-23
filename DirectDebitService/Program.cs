@@ -8,6 +8,7 @@ using Base.Types;
 using AccountActor.Interfaces;
 using MongoDB.Bson.Serialization;
 using Base.Serialization;
+using Base.Providers;
 
 namespace DirectDebitService
 {
@@ -27,8 +28,10 @@ namespace DirectDebitService
                 var dateTimeService = new DateTimeService();
                 var directDebitRepository = new DirectDebitRepository(connectionString, dateTimeService, mongoClient);
 
+                var elasticSearchProvider = new ElasticSearchProvider(elasticSearchConnection);
+
                 ServiceRuntime.RegisterServiceAsync("DirectDebitServiceType",
-                    context => new DirectDebitService(context, directDebitRepository, new AccountActorFactory(), dateTimeService)).GetAwaiter().GetResult();
+                    context => new DirectDebitService(context, directDebitRepository, new AccountActorFactory(), dateTimeService, elasticSearchProvider)).GetAwaiter().GetResult();
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(DirectDebitService).Name);
 

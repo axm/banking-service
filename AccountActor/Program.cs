@@ -36,9 +36,10 @@ namespace AccountActor
                 repository.CreateAccountStore();
 
                 var serviceBusProvider = new ServiceBusProvider();
+                var elasticSearchProvider = new ElasticSearchProvider(elasticSearchConnection);
 
                 ActorRuntime.RegisterActorAsync<AccountActor>(
-                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new AccountActor(svc, id, repository, dateTimeService, serviceBusProvider))).GetAwaiter().GetResult();
+                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new AccountActor(svc, id, repository, dateTimeService, serviceBusProvider, elasticSearchProvider))).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,11 @@ namespace Base.Providers
 
     public class ElasticSearchProvider : IElasticSearchProvider
     {
+        private readonly ElasticClient _client;
 
+        public ElasticSearchProvider(string connectionString)
+        {
+            _client = new ElasticClient(new Uri(connectionString));
+        }
     }
 }

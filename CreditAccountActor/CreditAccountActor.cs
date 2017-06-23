@@ -11,6 +11,7 @@ using CreditAccountActor.Interfaces.Params;
 using Credits.Interfaces;
 using Credits.Domain;
 using Base.Types;
+using Base.Providers;
 
 namespace CreditAccountActor
 {
@@ -29,13 +30,15 @@ namespace CreditAccountActor
         private readonly CreditAccountGuid CreditAccountId;
         private readonly ICreditRepository _repository;
         private readonly IDateTimeService _dateTimeService;
+        private readonly IElasticSearchProvider _elasticSearchProvider;
 
-        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository, IDateTimeService dateTimeService)
+        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository, IDateTimeService dateTimeService, IElasticSearchProvider elasticSearchProvider)
             : base(actorService, actorId)
         {
             CreditAccountId = new CreditAccountGuid(actorId.GetGuidId());
             _repository = repository;
             _dateTimeService = dateTimeService;
+            _elasticSearchProvider = elasticSearchProvider;
         }
 
         public async Task MakePayment(PaymentParams paymentParams)

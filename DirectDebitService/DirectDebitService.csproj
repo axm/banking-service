@@ -138,6 +138,10 @@
       <Project>{5F6487E7-B4D7-4020-8566-681ABBDF31CD}</Project>
       <Name>Accounts.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Base.Providers\Base.Providers.csproj">
+      <Project>{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}</Project>
+      <Name>Base.Providers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Base.Serialization\Base.Serialization.csproj">
       <Project>{5d1062a4-0e52-4cfa-8a79-cd03fdff50b7}</Project>
       <Name>Base.Serialization</Name>

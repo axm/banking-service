@@ -4,6 +4,7 @@ using Microsoft.ServiceFabric.Actors.Runtime;
 using CreditAccountActor.Repository;
 using System.Configuration;
 using Base.Types;
+using Base.Providers;
 
 namespace CreditAccountActor
 {
@@ -26,8 +27,10 @@ namespace CreditAccountActor
                 var elasticSearchConnection = ConfigurationManager.ConnectionStrings["ElasticSearchDefault"].ConnectionString;
                 var dateTimeService = new DateTimeService();
 
+                var elasticSearchProvider = new ElasticSearchProvider(elasticSearchConnection);
+
                 ActorRuntime.RegisterActorAsync<CreditAccountActor>(
-                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new CreditAccountActor(svc, id, repository, dateTimeService))).GetAwaiter().GetResult();
+                   (context, actorType) => new ActorService(context, actorType, (svc, id) => new CreditAccountActor(svc, id, repository, dateTimeService, elasticSearchProvider))).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }

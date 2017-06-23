@@ -2,9 +2,7 @@
 <ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="BankingServiceType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
     <Parameter Name="AdminApi_InstanceCount" DefaultValue="-1" />
-    <Parameter Name="CustomersService_InstanceCount" DefaultValue="-1" />
     <Parameter Name="DirectDebitService_InstanceCount" DefaultValue="-1" />
-    <Parameter Name="TransactionProcessingService_InstanceCount" DefaultValue="-1" />
     <Parameter Name="BankingIntegrationTests_InstanceCount" DefaultValue="-1" />
     <Parameter Name="BankingApi_InstanceCount" DefaultValue="-1" />
     <Parameter Name="AccountActorService_PartitionCount" DefaultValue="10" />
@@ -25,15 +23,7 @@
     <ConfigOverrides />
   </ServiceManifestImport>
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="CustomersServicePkg" ServiceManifestVersion="1.0.0" />
-    <ConfigOverrides />
-  </ServiceManifestImport>
-  <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="DirectDebitServicePkg" ServiceManifestVersion="1.0.0" />
-    <ConfigOverrides />
-  </ServiceManifestImport>
-  <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="TransactionProcessingServicePkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides />
   </ServiceManifestImport>
   <ServiceManifestImport>
@@ -64,18 +54,8 @@
         <SingletonPartition />
       </StatelessService>
     </Service>
-    <Service Name="CustomersService">
-      <StatelessService ServiceTypeName="CustomersServiceType" InstanceCount="[CustomersService_InstanceCount]">
-        <SingletonPartition />
-      </StatelessService>
-    </Service>
     <Service Name="DirectDebitService">
       <StatelessService ServiceTypeName="DirectDebitServiceType" InstanceCount="[DirectDebitService_InstanceCount]">
-        <SingletonPartition />
-      </StatelessService>
-    </Service>
-    <Service Name="TransactionProcessingService">
-      <StatelessService ServiceTypeName="TransactionProcessingServiceType" InstanceCount="[TransactionProcessingService_InstanceCount]">
         <SingletonPartition />
       </StatelessService>
     </Service>
