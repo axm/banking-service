@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Base.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,5 @@ namespace Accounts.Domain
     {
         public AccountGuid AccountId { get; set; }
         public decimal Overdraft { get; set; }
-
     }
 }

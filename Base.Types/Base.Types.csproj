@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountGuid.cs" />
     <Compile Include="AccountInterestAlgorithmGuid.cs" />
     <Compile Include="AccountInterestAlgorithmSpecifier.cs" />
     <Compile Include="CorrelationGuid.cs" />
@@ -52,6 +53,8 @@
     <Compile Include="RequestContext.cs" />
     <Compile Include="TransactionGuid.cs" />
     <Compile Include="TypedGuid.cs" />
+    <Compile Include="ValidatorGuid.cs" />
+    <Compile Include="ValidatorSpecifier.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

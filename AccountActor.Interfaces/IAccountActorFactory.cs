@@ -2,6 +2,7 @@
 using Microsoft.ServiceFabric.Actors.Client;
 using System;
 using Microsoft.ServiceFabric.Actors;
+using Base.Types;
 
 namespace AccountActor.Interfaces
 {

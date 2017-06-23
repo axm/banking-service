@@ -8,6 +8,7 @@ using CreditAccountActor.Interfaces;
 using Accounts.Domain;
 using BankingApi.Validation;
 using Banking.Domain;
+using Base.Types;
 
 namespace BankingApi.Controllers
 {

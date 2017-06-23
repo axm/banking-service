@@ -1,5 +1,6 @@
 ﻿using AccountActor.Interfaces;
 using Accounts.Domain;
+using Base.Types;
 using CreditAccountActor.Interfaces;
 using SimpleInjector;
 using System;

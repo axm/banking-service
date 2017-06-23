@@ -8,6 +8,7 @@ using Accounts.Domain;
 using BankingApi.Params;
 using Banking.Domain;
 using System.Diagnostics;
+using Base.Types;
 
 namespace BankingApi.Controllers
 {
