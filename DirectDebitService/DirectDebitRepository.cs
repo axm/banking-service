@@ -7,6 +7,7 @@ using Base.Types;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using Accounts.Entities;
+using Base.Providers;
 
 namespace DirectDebitService
 {
@@ -23,7 +24,6 @@ namespace DirectDebitService
         private readonly MongoClient _mongoClient;
 
         private IMongoCollection<DirectDebit> DebitCollection => _mongoClient.GetDatabase("local").GetCollection<DirectDebit>("directDebits");
-        private IMongoCollection<BsonDocument> DebitCollection2 => _mongoClient.GetDatabase("local").GetCollection<BsonDocument>("directDebits");
 
 
         public DirectDebitRepository(string connectionString, IDateTimeProvider dateTimeService, MongoClient mongoClient)

@@ -6,7 +6,11 @@ namespace Base.Types
     [DataContract]
     public class AccountGuid : TypedGuid
     {
-        public AccountGuid() : this(Guid.NewGuid())
+        public AccountGuid() : base(Guid.NewGuid())
+        {
+        }
+
+        public AccountGuid(string id) : base(id)
         {
         }
 

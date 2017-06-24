@@ -66,6 +66,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Base.Providers\Base.Providers.csproj">
+      <Project>{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}</Project>
+      <Name>Base.Providers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Base.Types\Base.Types.csproj">
       <Project>{3F1B0B69-5598-4246-9557-7B359000F185}</Project>
       <Name>Base.Types</Name>
