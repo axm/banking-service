@@ -49,7 +49,7 @@
     <Compile Include="CreditInterestAlgorithmGuid.cs" />
     <Compile Include="CreditInterestAlgorithmSpecifier.cs" />
     <Compile Include="CustomerGuid.cs" />
-    <Compile Include="DateTimeService.cs" />
+    <Compile Include="DateTimeProvider.cs" />
     <Compile Include="DayMonth.cs" />
     <Compile Include="DirectDebitFrequency.cs" />
     <Compile Include="Money.cs" />

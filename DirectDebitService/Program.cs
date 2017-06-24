@@ -25,7 +25,7 @@ namespace DirectDebitService
                 var mongoConnectionString = ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString;
                 var elasticSearchConnection = ConfigurationManager.ConnectionStrings["ElasticSearchDefault"].ConnectionString;
                 var mongoClient = new MongoClient();
-                var dateTimeService = new DateTimeService();
+                var dateTimeService = new DateTimeProvider();
                 var directDebitRepository = new DirectDebitRepository(connectionString, dateTimeService, mongoClient);
 
                 var elasticSearchProvider = new ElasticSearchProvider(elasticSearchConnection);

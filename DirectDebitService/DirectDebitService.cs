@@ -20,10 +20,10 @@ namespace DirectDebitService
     {
         private readonly IDirectDebitRepository _repository;
         private readonly IAccountActorFactory _accountFactory;
-        private readonly IDateTimeService _dateTimeService;
+        private readonly IDateTimeProvider _dateTimeService;
         private readonly IElasticSearchProvider _elasticSearchProvider;
 
-        public DirectDebitService(StatelessServiceContext context, IDirectDebitRepository repository, IAccountActorFactory accountFactory, IDateTimeService dateTimeService, IElasticSearchProvider elasticSearchProvider)
+        public DirectDebitService(StatelessServiceContext context, IDirectDebitRepository repository, IAccountActorFactory accountFactory, IDateTimeProvider dateTimeService, IElasticSearchProvider elasticSearchProvider)
             : base(context)
         {
             _repository = repository;

@@ -26,12 +26,12 @@ namespace AccountActor
         private readonly AccountGuid _id;
         private AccountData AccountData { get; set; }
         private readonly IAccountRepository _repository;
-        private readonly IDateTimeService _dateTimeService;
+        private readonly IDateTimeProvider _dateTimeService;
         private AccountMutator AccountMutator;
         private readonly IServiceBusProvider _serviceBusProvider;
         private readonly IElasticSearchProvider _elasticSearchProvider;
 
-        public AccountActor(ActorService actorService, ActorId actorId, IAccountRepository repository, IDateTimeService dateTimeService, IServiceBusProvider serviceBusProvider, IElasticSearchProvider elasticSearchProvider) : base(actorService, actorId)
+        public AccountActor(ActorService actorService, ActorId actorId, IAccountRepository repository, IDateTimeProvider dateTimeService, IServiceBusProvider serviceBusProvider, IElasticSearchProvider elasticSearchProvider) : base(actorService, actorId)
         {
             _id = new AccountGuid(actorId.GetGuidId());
             _repository = repository;

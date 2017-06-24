@@ -126,6 +126,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountActorTests.cs" />
     <Compile Include="AccountMutatorTests.cs" />
     <Compile Include="ApplyInterestTests.cs" />
     <Compile Include="BaseAccountActorTests.cs" />
@@ -154,6 +155,10 @@
     <ProjectReference Include="..\Accounts.Entities\Accounts.Entities.csproj">
       <Project>{777F9DB2-9510-45EB-BCD4-589C19AF76EC}</Project>
       <Name>Accounts.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Base.Providers\Base.Providers.csproj">
+      <Project>{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}</Project>
+      <Name>Base.Providers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Base.Types\Base.Types.csproj">
       <Project>{3F1B0B69-5598-4246-9557-7B359000F185}</Project>

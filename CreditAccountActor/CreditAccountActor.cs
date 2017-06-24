@@ -29,10 +29,10 @@ namespace CreditAccountActor
         private CreditAccount CreditAccount { get; set; }
         private readonly CreditAccountGuid CreditAccountId;
         private readonly ICreditRepository _repository;
-        private readonly IDateTimeService _dateTimeService;
+        private readonly IDateTimeProvider _dateTimeService;
         private readonly IElasticSearchProvider _elasticSearchProvider;
 
-        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository, IDateTimeService dateTimeService, IElasticSearchProvider elasticSearchProvider)
+        public CreditAccountActor(ActorService actorService, ActorId actorId, ICreditRepository repository, IDateTimeProvider dateTimeService, IElasticSearchProvider elasticSearchProvider)
             : base(actorService, actorId)
         {
             CreditAccountId = new CreditAccountGuid(actorId.GetGuidId());

@@ -19,14 +19,14 @@ namespace DirectDebitService
     public class DirectDebitRepository : IDirectDebitRepository
     {
         private readonly string _connectionString;
-        private readonly IDateTimeService _dateTimeService;
+        private readonly IDateTimeProvider _dateTimeService;
         private readonly MongoClient _mongoClient;
 
         private IMongoCollection<DirectDebit> DebitCollection => _mongoClient.GetDatabase("local").GetCollection<DirectDebit>("directDebits");
         private IMongoCollection<BsonDocument> DebitCollection2 => _mongoClient.GetDatabase("local").GetCollection<BsonDocument>("directDebits");
 
 
-        public DirectDebitRepository(string connectionString, IDateTimeService dateTimeService, MongoClient mongoClient)
+        public DirectDebitRepository(string connectionString, IDateTimeProvider dateTimeService, MongoClient mongoClient)
         {
             _connectionString = connectionString;
             _dateTimeService = dateTimeService;

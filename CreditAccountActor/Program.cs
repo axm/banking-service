@@ -25,7 +25,7 @@ namespace CreditAccountActor
                 var repository = new CreditRepository(ConfigurationManager.ConnectionStrings["Default"].ConnectionString);
                 var mongoConnection = new CreditRepository(ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString);
                 var elasticSearchConnection = ConfigurationManager.ConnectionStrings["ElasticSearchDefault"].ConnectionString;
-                var dateTimeService = new DateTimeService();
+                var dateTimeService = new DateTimeProvider();
 
                 var elasticSearchProvider = new ElasticSearchProvider(elasticSearchConnection);
 

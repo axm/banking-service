@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Base.Types
 {
-    public interface IDateTimeService
+    public interface IDateTimeProvider
     {
         DateTimeOffset GetDateTimeOffset();
     }
 
-    public class DateTimeService : IDateTimeService
+    public class DateTimeProvider : IDateTimeProvider
     {
         public DateTimeOffset GetDateTimeOffset()
         {
