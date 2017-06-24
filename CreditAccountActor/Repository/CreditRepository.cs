@@ -89,6 +89,8 @@ namespace CreditAccountActor.Repository
         {
             await _mongoClient.GetDatabase("local").CreateCollectionAsync("payments");
             await _mongoClient.GetDatabase("local").GetCollection<Payment>("payments").Indexes.CreateOneAsync(Builders<Payment>.IndexKeys.Descending(_ => _.Timestamp));
+
+            await _mongoClient.GetDatabase("local").CreateCollectionAsync("creditAccounts");
         }
     }
 }
