@@ -14,7 +14,10 @@ namespace Base.Serialization
     {
         public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, AccountGuid value)
         {
-            context.Writer.WriteString(value.Id.ToString());
+            if(value != null)
+            {
+                context.Writer.WriteString(value.Id.ToString());
+            }
         }
 
         public override AccountGuid Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
