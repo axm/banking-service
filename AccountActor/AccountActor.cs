@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Runtime;
@@ -6,6 +7,7 @@ using AccountActor.Interfaces;
 using Accounts.Domain;
 using Base.Types;
 using Base.Providers;
+using Accounts.Entities;
 
 namespace AccountActor
 {
@@ -102,7 +104,10 @@ namespace AccountActor
         {
             await LoadIfNecessary();
 
-            throw new NotImplementedException();
+            var transactions = AccountData.Transactions
+                .Where(t => t.Timestamp.Date >= DateTime.Now.AddMonths(-1).Date)
+                .ToDictionary(t => t.Timestamp.Date, t => t);
+
         }
 
         public async Task MakeTransaction(AccountGuid toAccountId, DateTimeOffset timestamp, Money amount)

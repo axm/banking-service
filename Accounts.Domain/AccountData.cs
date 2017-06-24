@@ -1,5 +1,7 @@
-﻿using Base.Types;
+﻿using Accounts.Entities;
+using Base.Types;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Accounts.Domain
 {
@@ -9,15 +11,16 @@ namespace Accounts.Domain
         public SortCode SortCode { get; private set; }
         public Money Overdraft { get; private set; }
         public Money Balance { get; private set; }
-        private ICollection<Transaction> Transactions { get; set; }
+        public IReadOnlyCollection<Transaction> Transactions => new ReadOnlyCollection<Transaction>(_transactions);
+        private readonly List<Transaction> _transactions;
 
-        public AccountData(AccountGuid id, SortCode sortCode, Money overdraft, Money balance, ICollection<Transaction> transactions)
+        public AccountData(AccountGuid id, SortCode sortCode, Money overdraft, Money balance, List<Transaction> transactions)
         {
             Id = id;
             SortCode =  sortCode;
             Overdraft = overdraft;
             Balance = balance;
-            Transactions = transactions;
+            _transactions = transactions;
         }
 
         public AccountData(AccountGuid id, SortCode sortCode, Money overdraft, Money balance) 
@@ -37,7 +40,7 @@ namespace Accounts.Domain
                 Balance = new Money(Balance.Amount + transaction.Amount);
             }
 
-            Transactions.Add(transaction);
+            _transactions.Add(transaction);
         }
     }
 }

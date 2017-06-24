@@ -125,6 +125,10 @@
       <Project>{5f6487e7-b4d7-4020-8566-681abbdf31cd}</Project>
       <Name>Accounts.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Accounts.Entities\Accounts.Entities.csproj">
+      <Project>{777F9DB2-9510-45EB-BCD4-589C19AF76EC}</Project>
+      <Name>Accounts.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Base.Providers\Base.Providers.csproj">
       <Project>{6DF467F0-AE33-48E7-8B5B-20A135EDBC1B}</Project>
       <Name>Base.Providers</Name>

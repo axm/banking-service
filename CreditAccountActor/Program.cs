@@ -29,6 +29,8 @@ namespace CreditAccountActor
 
                 var elasticSearchProvider = new ElasticSearchProvider(elasticSearchConnection);
 
+                repository.CreateCreditStore();
+
                 ActorRuntime.RegisterActorAsync<CreditAccountActor>(
                    (context, actorType) => new ActorService(context, actorType, (svc, id) => new CreditAccountActor(svc, id, repository, dateTimeService, elasticSearchProvider))).GetAwaiter().GetResult();
 

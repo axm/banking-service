@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using Base.Types;
+using Accounts.Entities;
 
 namespace AccountActor.Interfaces
 {
@@ -137,6 +138,13 @@ namespace AccountActor.Interfaces
         public async Task CreateAccountStore()
         {
             await _mongoClient.GetDatabase("local").CreateCollectionAsync("accounts");
+            await _mongoClient.GetDatabase("local").GetCollection<AccountData>("accounts").Indexes.CreateOneAsync(Builders<AccountData>.IndexKeys.Ascending(_ => _.Id));
+            await _mongoClient.GetDatabase("local").GetCollection<AccountData>("accounts").Indexes.CreateOneAsync(Builders<AccountData>.IndexKeys.Ascending(_ => _.SortCode));
+
+            await _mongoClient.GetDatabase("local").CreateCollectionAsync("directDebits");
+            await _mongoClient.GetDatabase("local").CreateCollectionAsync("transactions");
+
+            await _mongoClient.GetDatabase("local").GetCollection<Transaction>("directDebits").Indexes.CreateOneAsync(Builders<Transaction>.IndexKeys.Descending(_ => _.Timestamp));
         }
     }
 }

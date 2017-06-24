@@ -79,5 +79,16 @@ namespace CreditAccountActor.Repository
         {
             throw new NotImplementedException();
         }
+
+        public async Task<Transaction> GetTransactions()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task CreateCreditStore()
+        {
+            await _mongoClient.GetDatabase("local").CreateCollectionAsync("payments");
+            await _mongoClient.GetDatabase("local").GetCollection<Payment>("payments").Indexes.CreateOneAsync(Builders<Payment>.IndexKeys.Descending(_ => _.Timestamp));
+        }
     }
 }

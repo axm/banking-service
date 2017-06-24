@@ -93,5 +93,10 @@ namespace CreditAccountActor
         {
 
         }
+
+        public async Task ApplyInterest()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

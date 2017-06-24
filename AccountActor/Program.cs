@@ -32,6 +32,7 @@ namespace AccountActor
                 BsonSerializer.RegisterSerializer(typeof(AccountGuid), new AccountGuidSerializer());
                 BsonSerializer.RegisterSerializer(typeof(DateTimeOffset), new BankingDateTimeOffsetSerializer());
                 BsonSerializer.RegisterSerializer(typeof(Money), new MoneySerializer());
+                BsonSerializer.RegisterSerializer(typeof(SortCode), new SortCodeSerializer());
 
                 repository.CreateAccountStore();
 

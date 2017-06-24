@@ -1,4 +1,5 @@
 ﻿using Accounts.Domain;
+using Accounts.Entities;
 
 namespace AccountActor
 {

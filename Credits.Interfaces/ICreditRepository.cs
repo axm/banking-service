@@ -15,5 +15,7 @@ namespace Credits.Interfaces
         Task MakeTransaction(Transaction transaction);
         Task BackupTransaction(Transaction transaction);
         Task<CreditAccount> Get(CreditAccountGuid creditAccountId);
+        Task<Transaction> GetTransactions();
+        Task CreateCreditStore();
     }
 }

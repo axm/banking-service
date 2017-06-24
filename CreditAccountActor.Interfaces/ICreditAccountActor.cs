@@ -17,5 +17,6 @@ namespace CreditAccountActor.Interfaces
         Task MakePayment(PaymentParams paymentParams);
         Task MakeTransaction(TransactionParams transactionParams);
         Task VerifyIntegrity();
+        Task ApplyInterest();
     }
 }
