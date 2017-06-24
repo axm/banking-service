@@ -9,6 +9,7 @@ using BankingIntegrationTests.Data;
 using Accounts.Domain;
 using AccountActor.Interfaces;
 using Base.Types;
+using MongoDB.Driver;
 
 namespace BankingIntegrationTests.Controllers
 {
@@ -29,25 +30,19 @@ namespace BankingIntegrationTests.Controllers
         public async Task Setup()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
-            
-            using (var connection = new SqlConnection(connectionString))
+            var mongoConnectionString = ConfigurationManager.ConnectionStrings["MongoDefault"].ConnectionString;
+            var mongoClient = new MongoClient(mongoConnectionString);
+            var accountsCollection = mongoClient.GetDatabase("local").GetCollection<AccountData>("accounts");
+
+            var accounts = await accountsCollection.FindAsync(_ => _.Id == SampleAccountData.Account1.Id.Id || _.Id == SampleAccountData.Account2.Id.Id || _.Id == SampleAccountData.Account3.Id.Id);
+            if(accounts.Any())
             {
-                await connection.ExecuteAsync("Account.spNewAccount", new {
-                    AccountId = SampleAccountData.Account1.Id.Id,
-                    SortCode = SampleAccountData.Account1.SortCode.Code,
-                    Overdraft = SampleAccountData.Account1.Overdraft.Amount,
-                    Balance = SampleAccountData.Account1.Balance.Amount }, commandType: System.Data.CommandType.StoredProcedure);
-                await connection.ExecuteAsync("Account.spNewAccount", new {
-                    AccountId = SampleAccountData.Account2.Id.Id,
-                    SortCode = SampleAccountData.Account2.SortCode.Code,
-                    Overdraft = SampleAccountData.Account2.Overdraft.Amount,
-                    Balance = SampleAccountData.Account2.Balance.Amount }, commandType: System.Data.CommandType.StoredProcedure);
-                await connection.ExecuteAsync("Account.spNewAccount", new {
-                    AccountId = SampleAccountData.Account3.Id.Id,
-                    SortCode = SampleAccountData.Account3.SortCode.Code,
-                    Overdraft = SampleAccountData.Account3.Overdraft.Amount,
-                    Balance = SampleAccountData.Account3.Balance.Amount }, commandType: System.Data.CommandType.StoredProcedure);
+                return;
             }
+
+            await accountsCollection.InsertOneAsync(new AccountData(SampleAccountData.Account1.Id, SampleAccountData.Account1.SortCode, SampleAccountData.Account1.Overdraft.Amount, SampleAccountData.Account1.Balance.Amount));
+            await accountsCollection.InsertOneAsync(new AccountData(SampleAccountData.Account2.Id, SampleAccountData.Account2.SortCode, SampleAccountData.Account2.Overdraft.Amount, SampleAccountData.Account2.Balance.Amount));
+            await accountsCollection.InsertOneAsync(new AccountData(SampleAccountData.Account3.Id, SampleAccountData.Account3.SortCode, SampleAccountData.Account3.Overdraft.Amount, SampleAccountData.Account3.Balance.Amount));
         }
 
         [IntegrationTest]
