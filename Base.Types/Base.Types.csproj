@@ -51,6 +51,7 @@
     <Compile Include="CustomerGuid.cs" />
     <Compile Include="DateTimeService.cs" />
     <Compile Include="DayMonth.cs" />
+    <Compile Include="DirectDebitFrequency.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="MonthYear.cs" />
     <Compile Include="PaymentGuid.cs" />

@@ -1,4 +1,4 @@
-﻿namespace Accounts.Domain
+﻿namespace Base.Types
 {
     public enum DirectDebitFrequency
     {

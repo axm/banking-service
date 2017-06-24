@@ -1,5 +1,6 @@
 ﻿using Accounts.Domain;
 using Accounts.Entities;
+using System;
 
 namespace AccountActor
 {
@@ -14,6 +15,11 @@ namespace AccountActor
 
         public AccountData ApplyTransaction(Transaction transaction)
         {
+            if(transaction == null)
+            {
+                throw new ArgumentNullException($"{nameof(transaction)} cannot be null.");
+            }
+
             _accountData.AddTransaction(transaction);
 
             return _accountData;

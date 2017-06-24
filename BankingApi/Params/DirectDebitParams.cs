@@ -1,5 +1,6 @@
 ﻿using System;
 using Accounts.Domain;
+using Base.Types;
 
 namespace BankingApi.Params
 {

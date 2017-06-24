@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Actors;
 using Accounts.Domain;
 using Base.Types;
+using Accounts.Entities;
 
 namespace AccountActor.Interfaces
 {

@@ -9,6 +9,7 @@ namespace Accounts.Entities
         public AccountGuid InputAccountId { get; private set; }
         public AccountGuid OutputAccountId { get; private set; }
         public DateTimeOffset Timestamp { get; private set; }
+        // this is the balance BEFORE this transaction
         public decimal Balance { get; private set; }
         public decimal Amount { get; private set; }
 

@@ -8,6 +8,7 @@ using Accounts.Domain;
 using Base.Types;
 using Base.Providers;
 using Accounts.Entities;
+using System.Collections.Generic;
 
 namespace AccountActor
 {
@@ -104,9 +105,12 @@ namespace AccountActor
         {
             await LoadIfNecessary();
 
+            var today = _dateTimeService.GetDateTimeOffset().Date;
             var transactions = AccountData.Transactions
-                .Where(t => t.Timestamp.Date >= DateTime.Now.AddMonths(-1).Date)
-                .ToDictionary(t => t.Timestamp.Date, t => t);
+                .Where(t => t.Timestamp.Date >= today.AddMonths(-1).Date)
+                .GroupBy(t => t.Timestamp.Date)
+                .ToDictionary(t => t.Key, t => t.AsEnumerable().OrderByDescending(_ => _.Timestamp).First());
+            var days = (today - today.AddMonths(-1)).Days;
 
         }
 

@@ -126,6 +126,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountMutatorTests.cs" />
     <Compile Include="ApplyInterestTests.cs" />
     <Compile Include="BaseAccountActorTests.cs" />
     <Compile Include="DepositTests.cs" />
@@ -142,9 +143,17 @@
       <Project>{F0A3616E-400E-4F7B-A91F-668440A1E103}</Project>
       <Name>AccountActor.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AccountActor\AccountActor.csproj">
+      <Project>{6ac95773-3edf-4e3e-b52f-4eea8071eb28}</Project>
+      <Name>AccountActor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Accounts.Domain\Accounts.Domain.csproj">
       <Project>{5F6487E7-B4D7-4020-8566-681ABBDF31CD}</Project>
       <Name>Accounts.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Accounts.Entities\Accounts.Entities.csproj">
+      <Project>{777F9DB2-9510-45EB-BCD4-589C19AF76EC}</Project>
+      <Name>Accounts.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Base.Types\Base.Types.csproj">
       <Project>{3F1B0B69-5598-4246-9557-7B359000F185}</Project>

@@ -48,8 +48,6 @@
     <Compile Include="AccountData.cs" />
     <Compile Include="AccountInfo.cs" />
     <Compile Include="AccountSettings.cs" />
-    <Compile Include="DirectDebit.cs" />
-    <Compile Include="DirectDebitFrequency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transaction.cs" />
   </ItemGroup>

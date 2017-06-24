@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Base.Types;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Accounts.Entities;
 
 namespace DirectDebitService
 {
